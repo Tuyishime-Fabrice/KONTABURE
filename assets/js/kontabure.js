@@ -227,7 +227,7 @@
     $('[data-dialog-title]', dialog).textContent = c.title;
     $('[data-dialog-lead]', dialog).textContent = c.lead;
     $('[data-dialog-error]', dialog).hidden = true;
-    $('[data-dialog-send] span', dialog).textContent = 'Continue in your email app';
+    $('[data-dialog-status]', dialog).hidden = true;
     $$('input', dialog).forEach((i) => i.removeAttribute('aria-invalid'));
     dialog.showModal();
   }
@@ -264,8 +264,9 @@
         '',
         (data.get('message') || '').toString().trim()
       ].join('\n');
-      window.location.href = mailto(c.subject, body);
-      $('[data-dialog-send] span', dialog).textContent = 'Opening your email app…';
+      // Mail links can be blocked (e.g. inside embedded previews), so never claim it was sent.
+      try { window.location.href = mailto(c.subject, body); } catch (_) { /* fall back to the address shown below */ }
+      $('[data-dialog-status]', dialog).hidden = false;
     });
     $('[data-copy-email]', dialog).addEventListener('click', async (e) => {
       const label = $('span', e.currentTarget);
