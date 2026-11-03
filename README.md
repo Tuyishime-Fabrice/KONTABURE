@@ -85,6 +85,23 @@ running-low items, 24 items stocked in, +12% this week, and the 11 default categ
 clearly sample data. The main product frame carries a visible "Sample data" tag, every screenshot's alt
 text says "(sample data)", and the interactive sale demo is labelled as an illustration.
 
+The sample screens are layout stand-ins only: their sidebar and page structure do not match the real
+app, whose navigation is Stock, Suppliers, Customers, Branches, Reports, Books of account, AI,
+Users & Permissions and Company Profile. Replace them before launch.
+
+**What to capture.** Use a demo account filled with realistic sample data, never a live customer's account
+(the repository is public). Keep the browser window at about 1440×900, capture only the app (no browser bar
+or tabs), and keep personal names out of frame.
+
+| File | Screen to capture | Used for |
+|---|---|---|
+| `overview.webp` | Books of account › Dashboard | Hero, annotated dashboard, "Best sellers" preview |
+| `products.webp` | Products / adding products from a template | Chapter 01 "Set up your shop" |
+| `stock.webp` | Stock: a supplier delivery (stock in) and a stock count | Chapter 02, 10:00 moment, ledger previews |
+| `sales.webp` | Sales with payment methods and cashiers | Chapter 03, 13:00 moment |
+| `credit.webp` | Customers: balances, repayments, credit limits | Chapter 04, 16:00 and 18:30 moments |
+| `reports.webp` | AI business intelligence | Chapter 05, 21:00 moment, "Reports with AI insights" |
+
 **Replace them with real screenshots before launch:**
 
 1. Save real screenshots over the files in `assets/screens/` with the same names
