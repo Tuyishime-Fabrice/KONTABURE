@@ -575,6 +575,7 @@ section[id], [id^="step-"] { scroll-margin-top: 0; }
 .seg--light { margin-top: 0; width: fit-content; }
 .dialog__error { margin-top: 14px; color: #B83A26; font-size: 14px; font-weight: 550; }
 .dialog__actions { margin-top: 22px; }
+.dialog__status { margin-top: 14px; padding: 11px 14px; border-radius: 12px; background: #DFF1E8; color: var(--green-ink); font-size: 14px; line-height: 1.45; }
 .dialog__alt { margin-top: 14px; font-size: 13.5px; color: var(--on-paper-2); line-height: 1.6; }
 .dialog__alt a { color: var(--on-paper); font-weight: 600; }
 .dialog__copy { display: inline-flex; align-items: center; gap: 5px; margin-left: 4px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-paper); background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; vertical-align: 1px; }
