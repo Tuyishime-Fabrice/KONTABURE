@@ -559,8 +559,14 @@
       const len = strike.getTotalLength() || 300;
       tl.fromTo(strike, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut' }, 1.05);
     }
-    if (cinema) tl.fromTo('.stage', { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 1.6, ease: 'expo.out' }, .25);
-    else tl.fromTo('.hero__frame', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.4, ease: 'expo.out' }, .4);
+    if (cinema) {
+      tl.fromTo('.stage__photo', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 1.6, ease: 'expo.out' }, 0);
+      tl.fromTo('.device', { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' }, .7);
+      tl.fromTo('.float .chip', { opacity: 0, y: 16, scale: .94 }, { opacity: 1, y: 0, scale: 1, duration: .9, ease: 'back.out(1.6)', stagger: .4 }, 1.4);
+    } else {
+      tl.fromTo('.hero__photo', { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 1.6, ease: 'expo.out' }, 0);
+      tl.fromTo('.hero__frame', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.4, ease: 'expo.out' }, .4);
+    }
   }
 
   /* ---------------------------------------------------------------- generic reveals */
@@ -629,6 +635,11 @@
       rotationX: 0, scale: 1, ease: 'none',
       scrollTrigger: { trigger: '.hero__frame', start: 'top 98%', end: 'top 30%', scrub: .5 }
     });
+    // Photo parallax: the background drifts slower than the copy.
+    gsap.fromTo('.hero__photo img', { yPercent: 0 }, {
+      yPercent: 9, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
   }
 
   /* ---------------------------------------------------------------- THE STORY (cinema) */
@@ -640,7 +651,10 @@
     const shotEls = $$('.device__shot');
     const shotByKey = Object.fromEntries(shotEls.map((el) => [el.dataset.shot, el]));
     const pins = $$('.pin');
-    const heroChips = $$('.chip--a, .chip--b, .chip--c');
+    const floats = $$('.float');
+    const photoInner = $('.stage__photo-inner');
+    const photoImg = $('.stage__photo img');
+    const dim = $('.stage__dim');
     const stepChip = $('.chip--step');
     const rail = $('.rail');
     const railBtns = $$('button', rail);
@@ -661,7 +675,7 @@
       const h = w / 1.6 + chrome;
       const ticks = $('.hero__ticks');
       const ticksBottom = ticks ? docTop(ticks) - docTop(storyEl) + ticks.offsetHeight : vh * .5;
-      const heroTop = Math.min(vh * .74, Math.max(vh * .6, ticksBottom + 40));
+      const heroTop = Math.min(vh * .93, Math.max(vh * .84, ticksBottom + 30));
       const heroW = Math.min(vw * .84, 1260);
       G.heroS = heroW / w;
       G.heroY = heroTop + (h * G.heroS) / 2 - vh / 2;
@@ -707,15 +721,24 @@
     tl.fromTo(device,
       { x: 0, y: () => G.heroY, scale: () => G.heroS, rotationX: 24, rotationY: 0 },
       { x: 0, y: () => G.readY, scale: 1, rotationX: 0, rotationY: 0, duration: P_READ - .05, ease: 'power1.inOut' }, 0);
-    heroChips.forEach((c, i) => {
-      tl.to(c, { x: [-160, 180, 120][i], y: [-60, -120, 60][i], autoAlpha: 0, duration: .32, ease: 'power1.in' }, .02 + i * .03);
+    // The shop-floor activity flies into the dashboard as it rises.
+    const toDash = (el, axis) => {
+      const cx = el.offsetLeft + el.offsetWidth / 2, cy = el.offsetTop + el.offsetHeight / 2;
+      return axis === 'x' ? (window.innerWidth / 2 - cx) * .6 : (window.innerHeight / 2 + G.readY - cy) * .6;
+    };
+    floats.forEach((f, i) => {
+      tl.to(f, { x: () => toDash(f, 'x'), y: () => toDash(f, 'y'), scale: .7, autoAlpha: 0, duration: .44, ease: 'power2.in' }, .12 + i * .06);
     });
-    tl.to(heroEls, { autoAlpha: 0, y: -50, duration: .45 }, .08);
+    // The photograph drifts, deepens and steps back so the dashboard takes focus.
+    tl.fromTo(photoImg, { yPercent: 0, scale: 1 }, { yPercent: -5, scale: 1.1, duration: P_READ }, 0);
+    tl.fromTo(dim, { opacity: 0 }, { opacity: .82, duration: P_READ - .4, ease: 'power1.in' }, .04);
+    tl.to(heroEls, { autoAlpha: 0, y: -50, duration: .3 }, .03);
     tl.to(glow, { opacity: 0, duration: .7 }, .25);
 
     // B — dusk to day: ink washes to paper
     tl.fromTo(storyEl, { backgroundColor: '#070A12' }, { backgroundColor: '#F3F0E8', duration: .6 }, P_READ - .45);
     tl.fromTo(stage, { '--wash': 0 }, { '--wash': 1, duration: .6 }, P_READ - .45);
+    tl.fromTo(photoInner, { opacity: 1 }, { opacity: 0, duration: .45 }, P_READ - .45);
     tl.fromTo(title, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .3 }, P_READ - .12);
 
     // C — read the dashboard: numbered annotations, one by one
