@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KONTABURE for Boutiques — Sales, Stock &amp; Credit in One Place</title>
+<meta name="description" content="Run your boutique with KONTABURE: sell, restock from suppliers, track customers on credit, and see your best sellers and reports, in English or Kinyarwanda.">
+<meta name="theme-color" content="#070A12">
+<meta name="apple-mobile-web-app-title" content="KONTABURE">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kontabure.africa/">
+<meta property="og:site_name" content="KONTABURE">
+<meta property="og:title" content="KONTABURE for Boutiques — Sales, Stock &amp; Credit in One Place">
+<meta property="og:description" content="Sell, restock, and keep track of who owes you, all from one simple screen, in English or Kinyarwanda.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kontabure.africa/">
+<link rel="manifest" href="https://kontabure.africa/manifest.webmanifest">
+<link rel="icon" href="https://kontabure.africa/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://kontabure.africa/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="https://kontabure.africa/pwaicon.png">
+
+<link rel="preload" as="image" href="assets/img/hero-boutique.webp" imagesrcset="assets/img/hero-boutique-960.webp 960w, assets/img/hero-boutique.webp 1672w" imagesizes="100vw" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/kontabure.css">
+
+<script>
+  /* Pick the layout mode before first paint (no layout flash).
+     cinema  = desktop, full scroll storytelling
+     reduced = prefers-reduced-motion: everything static and readable
+     (default) = compact, touch-friendly vertical storytelling          */
+  (function (d) {
+    var h = d.documentElement, m = window.matchMedia;
+    h.classList.remove('no-js'); h.classList.add('js');
+    // Font preloads only over http(s); file:// blocks CORS preloads (fonts still load via CSS).
+    if (location.protocol.indexOf('http') === 0) ['poppins-600-latin', 'poppins-500-latin'].forEach(function (f) {
+      var l = d.createElement('link'); l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous';
+      l.href = 'assets/fonts/' + f + '.woff2'; d.head.appendChild(l);
+    });
+    if (m && m('(prefers-reduced-motion: reduce)').matches) h.classList.add('reduced');
+    else if (m && m('(min-width: 1024px) and (min-height: 620px)').matches) h.classList.add('cinema');
+    // Safety net: if scripts fail to load, never leave content hidden.
+    setTimeout(function () { if (!window.__kontabureReady) { h.classList.add('reveal-all'); h.classList.remove('cinema'); } }, 3000);
+  })(document);
+</script>
+</head>
+
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-repay" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-lang" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="logo-mark" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor"/><path d="M11 7v18" stroke="#F2B13C" stroke-width="2"/><path d="M15.5 12.5h9M15.5 17h9M15.5 21.5h5.5" stroke="var(--logo-lines, #070A12)" stroke-width="2" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+
+<!-- ============================================================ NAVIGATION -->
+<header class="nav" data-nav-root>
+  <div class="nav__inner">
+    <a class="brand" href="#top" aria-label="KONTABURE, back to top">
+      <svg class="brand__mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span class="brand__word">KONTABURE</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#features" data-nav-link="features">Features</a>
+      <a href="#how-it-works" data-nav-link="how-it-works">How it works</a>
+      <a href="#shop" data-nav-link="shop">Your shop</a>
+      <a href="#pricing" data-nav-link="pricing">Pricing</a>
+      <span class="nav__indicator" aria-hidden="true"></span>
+    </nav>
+    <div class="nav__actions">
+      <a class="nav__login" href="https://kontabure.africa/login">Log in</a>
+      <a class="btn btn--primary btn--sm" href="https://kontabure.africa/login"><span>Get started</span><svg class="btn__icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <button class="nav__menu" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="nav__menu-lines" aria-hidden="true"><i></i><i></i></span>
+        <span class="sr-only">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="mobile-menu" hidden>
+  <nav class="menu__links" aria-label="Mobile">
+    <a href="#features"><span>01</span>Features</a>
+    <a href="#how-it-works"><span>02</span>How it works</a>
+    <a href="#shop"><span>03</span>Your shop</a>
+    <a href="#pricing"><span>04</span>Pricing</a>
+  </nav>
+  <div class="menu__actions">
+    <a class="btn btn--primary" href="https://kontabure.africa/login"><span>Get started</span><svg class="btn__icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn--ghost" href="https://kontabure.africa/login">Log in</a>
+    <button class="btn btn--ghost" type="button" data-demo="demo"><svg class="btn__icon" aria-hidden="true"><use href="#i-cal"/></svg><span>Book a demo</span></button>
+  </div>
+</div>
+
+<main id="main-content">
+
+<!-- ============================================================ STORY: hero → dashboard → chapters
+     One continuous section. In "cinema" mode the product frame is pinned
+     (CSS sticky) while the story text scrolls past it.                      -->
+<section class="story" id="top" data-nav="dark" aria-label="KONTABURE introduction">
+
+  <div class="stage" aria-hidden="false">
+    <!-- Hero photograph: graded dark, drifts and dims as the dashboard rises -->
+    <div class="stage__photo" aria-hidden="true">
+      <div class="stage__photo-inner">
+        <img src="assets/img/hero-boutique.webp" srcset="assets/img/hero-boutique-960.webp 960w, assets/img/hero-boutique.webp 1672w" sizes="100vw" alt="" width="1672" height="941" decoding="async" fetchpriority="high">
+        <span class="photo-shade"></span>
+        <span class="stage__dim"></span>
+      </div>
+    </div>
+    <div class="stage__glow" aria-hidden="true"></div>
+    <div class="stage__rules" aria-hidden="true"></div>
+
+    <div class="stage__title" aria-hidden="true">
+      <p class="eyebrow">Your dashboard</p>
+      <p class="stage__headline">One screen. <em>Your whole shop.</em></p>
+    </div>
+
+    <figure class="device" role="img" aria-label="The KONTABURE dashboard showing sales today, money owed, sales this week and products running low (sample data).">
+      <div class="device__bar" aria-hidden="true">
+        <span class="device__dots"><i></i><i></i><i></i></span>
+        <span class="device__url"><svg aria-hidden="true"><use href="#i-check"/></svg>kontabure.africa</span>
+        <span class="device__tag">Sample data</span>
+      </div>
+      <div class="device__view">
+        <div class="device__cam">
+          <img class="device__shot is-active" data-shot="overview" src="assets/screens/overview.webp" alt="" width="1440" height="900" decoding="async">
+          <img class="device__shot" data-shot="products" src="assets/screens/products.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
+          <img class="device__shot" data-shot="stock" src="assets/screens/stock.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
+          <img class="device__shot" data-shot="sales" src="assets/screens/sales.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
+          <img class="device__shot" data-shot="credit" src="assets/screens/credit.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
+          <img class="device__shot" data-shot="reports" src="assets/screens/reports.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
+        </div>
+        <ol class="pins" aria-hidden="true">
+          <li class="pin" style="--px:500;--py:160" data-side="bl"><span class="pin__dot">1</span><span class="pin__label"><b>Sales today</b>What you've sold since opening.</span></li>
+          <li class="pin" style="--px:792;--py:160" data-side="br"><span class="pin__dot">2</span><span class="pin__label"><b>Owed to you</b>Money customers still owe the shop.</span></li>
+          <li class="pin" style="--px:640;--py:440" data-side="r"><span class="pin__dot">3</span><span class="pin__label"><b>This week</b>How each day compares, at a glance.</span></li>
+          <li class="pin" style="--px:1370;--py:330" data-side="l"><span class="pin__dot">4</span><span class="pin__label"><b>Running low</b>What to restock before it runs out.</span></li>
+        </ol>
+      </div>
+
+
+      <!-- One callout that changes with each chapter -->
+      <div class="chip chip--step" aria-hidden="true"><span class="chip__icon chip__icon--blue"><svg><use href="#i-layers"/></svg></span><span><b>Up to 300 items</b><small>added in one go</small></span></div>
+    </figure>
+
+    <!-- Activity from the shop floor; it flies into the dashboard as you scroll -->
+    <div class="float float--a" aria-hidden="true"><div class="chip"><span class="chip__icon chip__icon--green"><svg><use href="#i-repay"/></svg></span><span><b>+RWF 5,000 repaid</b><small>Credit · Uwase M.</small></span></div></div>
+    <div class="float float--b" aria-hidden="true"><div class="chip"><span class="chip__icon chip__icon--blue"><svg><use href="#i-truck"/></svg></span><span><b>Stock in recorded</b><small>24 items from supplier</small></span></div></div>
+
+    <nav class="rail" aria-label="Product tour steps">
+      <button type="button" data-goto="0"><span>01</span>Set up</button>
+      <button type="button" data-goto="1"><span>02</span>Inventory</button>
+      <button type="button" data-goto="2"><span>03</span>Sales</button>
+      <button type="button" data-goto="3"><span>04</span>Credit</button>
+      <button type="button" data-goto="4"><span>05</span>Reports</button>
+      <span class="rail__fill" aria-hidden="true"></span>
+    </nav>
+  </div>
+
+  <div class="flow">
+    <!-- ------------------------------------------------ HERO -->
+    <header class="hero">
+      <div class="hero__photo" aria-hidden="true"><img src="assets/img/hero-boutique.webp" srcset="assets/img/hero-boutique-960.webp 960w, assets/img/hero-boutique.webp 1672w" sizes="100vw" alt="" width="1672" height="941" decoding="async"><span class="photo-shade"></span></div>
+      <div class="hero__copy">
+        <p class="eyebrow eyebrow--chip" data-rv><span class="eyebrow__dot" aria-hidden="true"></span>KONTABURE for boutiques</p>
+        <h1 class="hero__title" data-split>Run your boutique <br class="br-wide">without the <span class="strike">notebook<svg class="strike__line" viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 19 C 70 9, 150 23, 296 11"/></svg></span></h1>
+        <div class="hero__side">
+          <p class="hero__lead" data-rv>Sell, restock, and keep track of who owes you, all from one simple screen, in English or Kinyarwanda.</p>
+          <div class="hero__cta" data-rv>
+            <a class="btn btn--primary btn--lg" href="https://kontabure.africa/login"><span>Get started</span><svg class="btn__icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <button class="btn btn--ghost btn--lg" type="button" data-demo="demo"><svg class="btn__icon" aria-hidden="true"><use href="#i-cal"/></svg><span>Book a demo</span></button>
+          </div>
+          <p class="hero__note" data-rv>Every plan starts with a 30-day free trial.</p>
+        </div>
+      </div>
+      <ul class="hero__ticks" data-rv>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Credit tracking built in</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>English &amp; Kinyarwanda</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>AI sales insights</li>
+      </ul>
+
+      <!-- Compact / reduced-motion version of the product frame -->
+      <figure class="frame hero__frame">
+        <div class="frame__bar" aria-hidden="true"><span class="device__dots"><i></i><i></i><i></i></span><span class="frame__tag">Sample data</span></div>
+        <div class="shot" data-crop="full"><img src="assets/screens/overview.webp" alt="The KONTABURE dashboard: sales today RWF 184,500, owed to you RWF 62,000, sales this week up 12%, and three products running low (sample data)." width="1440" height="900" decoding="async"></div>
+        <div class="chip chip--inline" aria-hidden="true"><span class="chip__icon chip__icon--green"><svg><use href="#i-repay"/></svg></span><span><b>+RWF 5,000 repaid</b><small>Credit · Uwase M.</small></span></div>
+      </figure>
+    </header>
+
+    <!-- ------------------------------------------------ READ THE DASHBOARD -->
+    <div class="beat beat--read" data-nav="light">
+      <div class="read">
+        <p class="eyebrow" data-rv>Your dashboard</p>
+        <h2 class="h2" data-split>One screen. <em>Your whole shop.</em></h2>
+        <p class="lead" data-rv>Open KONTABURE and today is already added up.</p>
+        <figure class="frame read__frame" data-rv>
+          <div class="frame__bar" aria-hidden="true"><span class="device__dots"><i></i><i></i><i></i></span><span class="frame__tag">Sample data</span></div>
+          <div class="shot" data-crop="ov-top" data-crop-sm="ov-kpis"><img src="assets/screens/overview.webp" alt="Dashboard summary cards and weekly sales chart (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div>
+        </figure>
+        <ol class="read__list">
+          <li data-rv><span>1</span><div><b>Sales today</b>What you've sold since opening.</div></li>
+          <li data-rv><span>2</span><div><b>Owed to you</b>Money customers still owe the shop.</div></li>
+          <li data-rv><span>3</span><div><b>This week</b>How each day compares, at a glance.</div></li>
+          <li data-rv><span>4</span><div><b>Running low</b>What to restock before it runs out.</div></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ------------------------------------------------ HOW IT WORKS -->
+    <div id="how-it-works" class="how" data-nav="light">
+      <div class="beat beat--intro">
+        <div class="intro">
+          <p class="eyebrow" data-rv>How it works</p>
+          <h2 class="h2 h2--xl" data-split>Your entire boutique. <em>One connected system.</em></h2>
+          <p class="lead" data-rv>Products, stock, sales, customer credit and reports, together in one place. Here's how a shop runs on KONTABURE, from the first product you add to the report you read at closing.</p>
+        </div>
+      </div>
+
+      <article class="chapter" id="step-setup" data-step="0" data-shot="products">
+        <div class="chapter__text">
+          <p class="chapter__num" data-rv><span>01</span>First</p>
+          <h3 class="chapter__title" data-split>Set up your shop</h3>
+          <p class="chapter__lead" data-rv>Add your products, organise your categories and record your starting stock.</p>
+          <ul class="ticks" data-rv>
+            <li>Start from ready-made product templates</li>
+            <li>Add up to 300 items in one go</li>
+            <li>Categories and units ready from day one</li>
+          </ul>
+        </div>
+        <figure class="frame chapter__frame" data-rv="clip">
+          <div class="shot" data-crop="pr-bulk" data-crop-sm="pr-bulk-sm"><img src="assets/screens/products.webp" alt="Adding products in bulk from a template, with category, unit, price and opening stock for each item (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div>
+        </figure>
+      </article>
+
+      <article class="chapter" id="step-inventory" data-step="1" data-shot="stock">
+        <div class="chapter__text">
+          <p class="chapter__num" data-rv><span>02</span>Second</p>
+          <h3 class="chapter__title" data-split>Manage your inventory</h3>
+          <p class="chapter__lead" data-rv>Record supplier deliveries, keep stock levels right, and adjust when the shelf doesn't match.</p>
+          <ul class="ticks" data-rv>
+            <li>Record every delivery against its supplier, so stock and buying costs stay right</li>
+            <li>Count the shelves and fix the differences</li>
+            <li>See every stock movement, with who made it</li>
+          </ul>
+        </div>
+        <figure class="frame chapter__frame" data-rv="clip">
+          <div class="shot" data-crop="st-in" data-crop-sm="st-in-sm"><img src="assets/screens/stock.webp" alt="A supplier delivery of 24 items recorded as stock in, with buying costs (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div>
+        </figure>
+      </article>
+
+      <article class="chapter" id="step-sales" data-step="2" data-shot="sales">
+        <div class="chapter__text">
+          <p class="chapter__num" data-rv><span>03</span>Third</p>
+          <h3 class="chapter__title" data-split>Record daily sales</h3>
+          <p class="chapter__lead" data-rv>Ring up what customers buy in seconds, and how they pay.</p>
+          <ul class="ticks" data-rv>
+            <li>Every sale saved with its items</li>
+            <li>Payments tracked by method, branch and cashier</li>
+            <li>See which products sell best</li>
+          </ul>
+        </div>
+        <figure class="frame chapter__frame" data-rv="clip">
+          <div class="shot" data-crop="sa-table" data-crop-sm="sa-receipt"><img src="assets/screens/sales.webp" alt="Today's sales listed with their items, payment method and cashier (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div>
+        </figure>
+      </article>
+
+      <article class="chapter" id="step-credit" data-step="3" data-shot="credit">
+        <div class="chapter__text">
+          <p class="chapter__num" data-rv><span>04</span>Fourth</p>
+          <h3 class="chapter__title" data-split>Manage customer credit</h3>
+          <p class="chapter__lead" data-rv>Sell on credit to your regulars, see who owes the shop, and record repayments as they come in.</p>
+          <ul class="ticks" data-rv>
+            <li>Know exactly who owes you, and how much</li>
+            <li>Record repayments and see balances update</li>
+            <li>Set credit limits for each customer group</li>
+          </ul>
+        </div>
+        <figure class="frame chapter__frame" data-rv="clip">
+          <div class="shot" data-crop="cr-table" data-crop-sm="cr-table-sm"><img src="assets/screens/credit.webp" alt="Customers who owe the shop, with balances and how much of their group's credit limit is used (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div>
+        </figure>
+      </article>
+
+      <article class="chapter" id="step-reports" data-step="4" data-shot="reports">
+        <div class="chapter__text">
+          <p class="chapter__num" data-rv><span>05</span>Finally</p>
+          <h3 class="chapter__title" data-split>Understand your business</h3>
+          <p class="chapter__lead" data-rv>Open the dashboard and reports to see how the shop is really doing.</p>
+          <ul class="ticks" data-rv>
+            <li>Daily, weekly and monthly reports</li>
+            <li>Sales, stock movements and best sellers</li>
+            <li>AI insights that explain what changed, and why</li>
+          </ul>
+        </div>
+        <figure class="frame chapter__frame" data-rv="clip">
+          <div class="shot" data-crop="re-ai"><img src="assets/screens/reports.webp" alt="AI insights explaining this week's sales in plain language (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div>
+        </figure>
+      </article>
+    </div>
+    <div class="story__outro" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============================================================ ONE SALE, EVERYWHERE -->
+<section class="ripple" id="connected" data-nav="light" aria-labelledby="ripple-title">
+  <div class="container">
+    <div class="ripple__head">
+      <p class="eyebrow" data-rv>Record it once</p>
+      <h2 class="h2" id="ripple-title" data-split>One sale. <em>Everywhere it matters.</em></h2>
+      <p class="lead" data-rv>Try it. Record a sale and follow it to your stock, your takings and, when it's on credit, the customer's balance.</p>
+    </div>
+
+    <div class="ripple__board" data-rv>
+      <div class="ripple__sale">
+        <p class="ripple__label">New sale</p>
+        <div class="ripple__item">
+          <span class="ripple__thumb" aria-hidden="true"><svg><use href="#i-box"/></svg></span>
+          <div><b>Sugar 1kg</b><small>1 × RWF 1,500</small></div>
+          <strong>RWF 1,500</strong>
+        </div>
+        <fieldset class="seg" aria-label="How the customer pays">
+          <legend class="sr-only">How the customer pays</legend>
+          <label><input type="radio" name="pay" value="cash" checked><span>Cash</span></label>
+          <label><input type="radio" name="pay" value="momo"><span>Mobile money</span></label>
+          <label><input type="radio" name="pay" value="credit"><span>On credit</span></label>
+        </fieldset>
+        <p class="ripple__customer" data-customer hidden>Customer: <b>Uwase M.</b> · Regulars</p>
+        <div class="ripple__actions">
+          <button class="btn btn--primary" type="button" data-ripple-go><svg class="btn__icon" aria-hidden="true"><use href="#i-receipt"/></svg><span>Record sale</span></button>
+          <button class="btn btn--text" type="button" data-ripple-reset>Reset</button>
+        </div>
+      </div>
+
+      <svg class="ripple__wires" aria-hidden="true" preserveAspectRatio="none"><path/><path/><path/></svg>
+
+      <div class="ripple__nodes" aria-live="polite">
+        <div class="node" data-node="stock">
+          <p class="node__k"><svg aria-hidden="true"><use href="#i-box"/></svg>Stock</p>
+          <p class="node__v"><span data-v="stock">6</span> left</p>
+          <p class="node__s">Sugar 1kg · <span class="node__flag" data-flag>Running low</span></p>
+        </div>
+        <div class="node" data-node="sales">
+          <p class="node__k"><svg aria-hidden="true"><use href="#i-chart"/></svg>Sales today</p>
+          <p class="node__v">RWF <span data-v="sales">184,500</span></p>
+          <p class="node__s"><span data-v="count">38</span> sales · on today's report</p>
+        </div>
+        <div class="node" data-node="money">
+          <p class="node__k"><svg aria-hidden="true"><use href="#i-repay"/></svg><span data-v="money-k">Paid in cash today</span></p>
+          <p class="node__v">RWF <span data-v="money">96,000</span></p>
+          <p class="node__s" data-v="money-s">Payments by method</p>
+        </div>
+      </div>
+    </div>
+    <p class="fineprint" data-rv>Interactive illustration using the demo shop's sample figures.</p>
+  </div>
+</section>
+
+<!-- ============================================================ A DAY IN YOUR SHOP (horizontal on desktop) -->
+<section class="day" id="a-day" data-nav="light" aria-labelledby="day-title">
+  <div class="day__stage">
+    <div class="day__track">
+      <div class="day__panel day__intro">
+        <p class="eyebrow" data-rv>A day in your shop</p>
+        <h2 class="h2 h2--xl" id="day-title" data-split>From opening to closing, <em>one place to look.</em></h2>
+        <p class="lead" data-rv>An example day at a boutique running on KONTABURE.</p>
+        <p class="day__hint" aria-hidden="true"><span></span>Keep scrolling</p>
+      </div>
+
+      <article class="day__panel moment" data-time="07:00" data-tone="dawn">
+        <div class="moment__text">
+          <p class="moment__time">07:00</p>
+          <h3 class="moment__title">Before you open</h3>
+          <p>Check what's running low before the first customer walks in.</p>
+        </div>
+        <figure class="frame moment__frame"><div class="shot" data-crop="ov-low"><img src="assets/screens/overview.webp" alt="Running low: Fresh milk 500ml, 4 left; Sugar 1kg, 6 left; Cooking gas refill, 2 left (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div></figure>
+      </article>
+
+      <article class="day__panel moment" data-time="10:00" data-tone="morning">
+        <div class="moment__text">
+          <p class="moment__time">10:00</p>
+          <h3 class="moment__title">The supplier arrives</h3>
+          <p>Record the delivery against the supplier. Stock and buying costs stay right.</p>
+        </div>
+        <figure class="frame moment__frame"><div class="shot" data-crop="st-in" data-crop-sm="st-in-sm"><img src="assets/screens/stock.webp" alt="Stock in from a supplier: 24 items received (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div></figure>
+      </article>
+
+      <article class="day__panel moment" data-time="13:00" data-tone="noon">
+        <div class="moment__text">
+          <p class="moment__time">13:00</p>
+          <h3 class="moment__title">The lunchtime rush</h3>
+          <p>Ring up each sale in seconds, with how the customer paid and who served them.</p>
+        </div>
+        <figure class="frame moment__frame"><div class="shot" data-crop="sa-receipt"><img src="assets/screens/sales.webp" alt="A sale with its items, paid by mobile money, served by cashier Aline at the Kimironko branch (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div></figure>
+      </article>
+
+      <article class="day__panel moment" data-time="16:00" data-tone="afternoon">
+        <div class="moment__text">
+          <p class="moment__time">16:00</p>
+          <h3 class="moment__title">A regular asks for credit</h3>
+          <p>Sell on credit within their group's limit, and see what they already owe.</p>
+        </div>
+        <figure class="frame moment__frame"><div class="shot" data-crop="cr-table" data-crop-sm="cr-table-sm"><img src="assets/screens/credit.webp" alt="Customers on credit with balances and credit limits (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div></figure>
+      </article>
+
+      <article class="day__panel moment" data-time="18:30" data-tone="dusk">
+        <div class="moment__text">
+          <p class="moment__time">18:30</p>
+          <h3 class="moment__title">A repayment comes in</h3>
+          <p>Record it, and the customer's balance updates straight away.</p>
+        </div>
+        <figure class="frame moment__frame"><div class="shot" data-crop="cr-repay"><img src="assets/screens/credit.webp" alt="Repayment of RWF 5,000 recorded for Uwase M.; balance goes from 13,500 to 8,500 (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div></figure>
+      </article>
+
+      <article class="day__panel moment" data-time="21:00" data-tone="night">
+        <div class="moment__text">
+          <p class="moment__time">21:00</p>
+          <h3 class="moment__title">Closing time</h3>
+          <p>See today's sales and what's owed, with what changed explained in plain language.</p>
+        </div>
+        <figure class="frame moment__frame"><div class="shot" data-crop="re-ai"><img src="assets/screens/reports.webp" alt="AI insights for the week in plain language (sample data)." width="1440" height="900" loading="lazy" decoding="async"></div></figure>
+      </article>
+    </div>
+
+    <div class="day__clock" aria-hidden="true">
+      <span class="day__now">07:00</span>
+      <span class="day__line"><i class="day__dot"></i></span>
+      <span class="day__end">21:00</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FEATURES LEDGER -->
+<section class="features" id="features" data-nav="dark" aria-labelledby="features-title">
+  <div class="container">
+    <div class="features__head">
+      <p class="eyebrow" data-rv>Built for boutiques</p>
+      <h2 class="h2 h2--xl" id="features-title" data-split>Everything your shop needs. <em>Nothing it doesn't.</em></h2>
+      <p class="lead" data-rv>The tools a neighborhood shop uses every day, without the ones it doesn't.</p>
+    </div>
+
+    <ol class="ledger">
+      <li class="ledger__row" data-preview="cr-table" data-shot="credit">
+        <span class="ledger__n">01</span><h3>Customers on credit</h3>
+        <p>Know exactly who owes you and how much. Sell on credit, record repayments, and set credit limits per customer group.</p>
+        <span class="ledger__tag">Credit</span>
+      </li>
+      <li class="ledger__row" data-preview="pr-template" data-shot="products">
+        <span class="ledger__n">02</span><h3>Products in minutes</h3>
+        <p>Start from ready-made product templates and add up to 300 items in one go, with units and categories already set up.</p>
+        <span class="ledger__tag">Products</span>
+      </li>
+      <li class="ledger__row" data-preview="st-in" data-shot="stock">
+        <span class="ledger__n">03</span><h3>Stock in from suppliers</h3>
+        <p>Record every delivery against the supplier so your stock and buying costs stay right.</p>
+        <span class="ledger__tag">Stock</span>
+      </li>
+      <li class="ledger__row" data-preview="st-count" data-shot="stock">
+        <span class="ledger__n">04</span><h3>Stock counts &amp; adjustments</h3>
+        <p>Count the shelves, fix the differences, and see every stock movement with who made it.</p>
+        <span class="ledger__tag">Stock</span>
+      </li>
+      <li class="ledger__row" data-preview="sa-pay" data-shot="sales">
+        <span class="ledger__n">05</span><h3>Sales &amp; payments</h3>
+        <p>Every sale with its items, and every payment by method, branch and cashier.</p>
+        <span class="ledger__tag">Sales</span>
+      </li>
+      <li class="ledger__row" data-preview="ov-best" data-shot="overview">
+        <span class="ledger__n">06</span><h3>Best sellers</h3>
+        <p>See what moves fastest so you restock the right products before they run out.</p>
+        <span class="ledger__tag">Sales</span>
+      </li>
+      <li class="ledger__row" data-preview="re-ai" data-shot="reports">
+        <span class="ledger__n">07</span><h3>Reports with AI insights</h3>
+        <p>Daily, weekly and monthly reports, with plain-language insights on what changed and why.</p>
+        <span class="ledger__tag">Reports</span>
+      </li>
+      <li class="ledger__row" data-preview="lang">
+        <span class="ledger__n">08</span><h3>English &amp; Kinyarwanda</h3>
+        <p>Every screen in the boutique module is available in both languages. Switch any time.</p>
+        <span class="ledger__tag">Language</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Cursor-following preview (desktop, fine pointer only) -->
+  <div class="peek" aria-hidden="true">
+    <div class="peek__inner">
+      <div class="shot peek__shot" data-crop="cr-table"><img src="assets/screens/credit.webp" alt="" width="1440" height="900" loading="lazy" decoding="async"></div>
+      <div class="peek__lang"><span>English</span><span>Kinyarwanda</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ LOCAL / YOUR SHOP -->
+<section class="shop" id="shop" data-nav="dark" aria-labelledby="shop-title">
+  <div class="container">
+    <div class="shop__head">
+      <p class="eyebrow" data-rv>Designed for local businesses</p>
+      <h2 class="h2 h2--xl" id="shop-title" data-split>Made for the way <em>your shop</em> already works.</h2>
+    </div>
+
+    <ul class="manifesto">
+      <li data-rv>
+        <span class="manifesto__icon" aria-hidden="true"><svg><use href="#i-lang"/></svg></span>
+        <p class="manifesto__big">English <em>and</em> Kinyarwanda.</p>
+        <p class="manifesto__small">Every screen in the boutique module is available in both languages. Switch any time.</p>
+      </li>
+      <li data-rv>
+        <span class="manifesto__icon manifesto__icon--text" aria-hidden="true">RWF</span>
+        <p class="manifesto__big">Counted in Rwandan francs.</p>
+        <p class="manifesto__small">Your sales, buying costs and customer balances, in the currency you trade in.</p>
+      </li>
+      <li data-rv>
+        <span class="manifesto__icon" aria-hidden="true"><svg><use href="#i-repay"/></svg></span>
+        <p class="manifesto__big">Credit, the way you <em>already</em> give it.</p>
+        <p class="manifesto__small">Sell on credit to regulars and collect when they pay, with limits for each customer group.</p>
+      </li>
+      <li data-rv>
+        <span class="manifesto__icon" aria-hidden="true"><svg><use href="#i-spark"/></svg></span>
+        <p class="manifesto__big">Up and selling the same day.</p>
+        <p class="manifesto__small">No training course needed. Four steps and your shop is running on KONTABURE.</p>
+      </li>
+    </ul>
+
+    <div class="shelf">
+      <div class="shelf__head">
+        <h3 class="shelf__title" data-rv>Ready for what you already sell</h3>
+        <p data-rv>Every new boutique starts with these categories set up. Rename them, remove them, or add your own.</p>
+      </div>
+      <ul class="shelf__words" aria-label="Default product categories">
+        <li>Food</li><li>Beverages</li><li>Snacks</li><li>Household</li><li>Cleaning</li><li>Personal Care</li><li>Baby Products</li><li>Stationery</li><li>Cooking Ingredients</li><li>Gas &amp; Charcoal</li><li>Other</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PRICING -->
+<section class="pricing sheet" id="pricing" data-nav="light" aria-labelledby="pricing-title">
+  <div class="container pricing__grid">
+    <div class="pricing__intro">
+      <p class="eyebrow" data-rv>Pricing</p>
+      <h2 class="h2 h2--xl" id="pricing-title" data-split>Fair pricing <em>for your shop.</em></h2>
+      <p class="lead" data-rv>One simple price for your boutique, with savings when you pay for a quarter or a year.</p>
+      <p class="trial" data-rv><svg aria-hidden="true"><use href="#i-check"/></svg><span>Every plan starts with a <span data-trial-days>30</span>-day free trial</span></p>
+
+      <div class="period" data-rv>
+        <div class="period__group" role="radiogroup" aria-label="Billing period">
+          <button type="button" role="radio" aria-checked="true" data-period="monthly">Monthly</button>
+          <button type="button" role="radio" aria-checked="false" data-period="quarterly" tabindex="-1">Quarterly</button>
+          <button type="button" role="radio" aria-checked="false" data-period="annual" tabindex="-1">Annual<span class="period__save" data-annual-save>−20%</span></button>
+          <span class="period__thumb" aria-hidden="true"></span>
+        </div>
+        <p class="period__hint" aria-live="polite" data-period-hint>Billed monthly</p>
+      </div>
+    </div>
+
+    <div class="plans" data-plans>
+      <!-- Rendered from the pricing data in assets/js/kontabure.js.
+           Static fallback (no JavaScript) mirrors the current plan: -->
+      <article class="plan">
+        <div class="plan__head"><h3>Enterprise</h3><svg class="plan__crown" aria-label="Enterprise"><use href="#i-crown"/></svg></div>
+        <p class="plan__desc">Custom pricing for large and multi-branch businesses.</p>
+        <p class="plan__price">Custom</p>
+        <p class="plan__sub">Tailored to your branches and volume.</p>
+        <p class="plan__note"><svg aria-hidden="true"><use href="#i-building"/></svg>1 branch included, extra branches free</p>
+        <a class="btn btn--primary btn--block" href="mailto:support@kontabure.africa?subject=KONTABURE%20Enterprise%20pricing">Talk to sales</a>
+        <p class="plan__foot">Already a customer? <a href="https://kontabure.africa/login">Log in</a></p>
+      </article>
+    </div>
+    <p class="pricing__fine" data-rv>Prices in Rwandan francs (RWF).</p>
+  </div>
+</section>
+
+<!-- ============================================================ FINAL CTA + FOOTER -->
+<section class="finale sheet" data-nav="dark" aria-labelledby="finale-title">
+  <div class="container finale__inner">
+    <p class="eyebrow eyebrow--amber" data-rv>Get started</p>
+    <h2 class="finale__title" id="finale-title" data-split>Put your boutique on KONTABURE <em>today.</em></h2>
+    <p class="lead" data-rv>Set up your shop in minutes, or book a demo and we'll walk you through it.</p>
+    <div class="finale__cta" data-rv>
+      <a class="btn btn--primary btn--lg" href="https://kontabure.africa/login"><span>Get started</span><svg class="btn__icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <button class="btn btn--ghost btn--lg" type="button" data-demo="demo"><svg class="btn__icon" aria-hidden="true"><use href="#i-cal"/></svg><span>Request a demo</span></button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="#top" aria-label="KONTABURE, back to top"><svg class="brand__mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="brand__word">KONTABURE</span></a>
+        <p>Run your boutique with KONTABURE: sell, restock from suppliers, track customers on credit, and see your best sellers and reports, in English or Kinyarwanda.</p>
+      </div>
+      <nav class="footer__col" aria-label="Product">
+        <p>Product</p>
+        <a href="#features">Features</a><a href="#how-it-works">How it works</a><a href="#shop">Your shop</a><a href="#pricing">Pricing</a>
+      </nav>
+      <nav class="footer__col" aria-label="Account">
+        <p>Account</p>
+        <a href="https://kontabure.africa/login">Log in</a><a href="https://kontabure.africa/login">Get started</a>
+      </nav>
+      <nav class="footer__col" aria-label="Support">
+        <p>Support</p>
+        <a href="https://kontabure.africa/login">Help Center</a><a href="https://kontabure.africa/login">Documentation</a><a href="https://kontabure.africa/login">Training</a><a href="mailto:support@kontabure.africa" data-contact-link>Contact us</a>
+      </nav>
+    </div>
+    <div class="container footer__base">
+      <p>© 2026 KONTABURE. All rights reserved.</p>
+      <p>Prices in Rwandan francs (RWF).</p>
+    </div>
+    <p class="wordmark" aria-hidden="true">KONTABURE</p>
+  </footer>
+</section>
+</main>
+
+<!-- ============================================================ DEMO / SALES DIALOG
+     There is no demo-booking backend in the provided page, so this composes an
+     email to the support address (see CONTACT_EMAIL in assets/js/kontabure.js). -->
+<dialog class="dialog" id="demo-dialog" aria-labelledby="dialog-title">
+  <form class="dialog__card" method="dialog" novalidate>
+    <button class="dialog__close" type="submit" value="cancel" formnovalidate aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+    <p class="eyebrow" data-dialog-eyebrow>Book a demo</p>
+    <h2 class="dialog__title" id="dialog-title" data-dialog-title>See KONTABURE in your shop</h2>
+    <p class="dialog__lead" data-dialog-lead>Tell us a little about your shop and we'll walk you through it.</p>
+    <div class="dialog__fields">
+      <label class="field"><span>Your name</span><input name="name" autocomplete="name" required></label>
+      <label class="field"><span>Phone number</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+      <label class="field field--wide"><span>Shop name and location</span><input name="shop" autocomplete="organization" placeholder="e.g. Kimironko shop"></label>
+      <fieldset class="field field--wide">
+        <legend>Preferred language</legend>
+        <div class="seg seg--light">
+          <label><input type="radio" name="lang" value="English" checked><span>English</span></label>
+          <label><input type="radio" name="lang" value="Kinyarwanda"><span>Kinyarwanda</span></label>
+        </div>
+      </fieldset>
+      <label class="field field--wide"><span>Anything we should know? <small>(optional)</small></span><textarea name="message" rows="3"></textarea></label>
+    </div>
+    <p class="dialog__error" data-dialog-error role="alert" hidden>Please add your name and phone number.</p>
+    <div class="dialog__actions">
+      <button class="btn btn--primary btn--block" type="submit" value="send" data-dialog-send><svg class="btn__icon" aria-hidden="true"><use href="#i-mail"/></svg><span>Continue in your email app</span></button>
+    </div>
+    <p class="dialog__status" data-dialog-status role="status" hidden>Your email app should open with these details filled in. If it doesn't, copy the address below and send them to us.</p>
+    <p class="dialog__alt">This opens your email app with your details filled in. Or write to us at
+      <a href="mailto:support@kontabure.africa" data-contact-link data-contact-text>support@kontabure.africa</a>
+      <button class="dialog__copy" type="button" data-copy-email><svg aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></p>
+  </form>
+</dialog>
+
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/kontabure.js" defer></script>
+</body>
+</html>
