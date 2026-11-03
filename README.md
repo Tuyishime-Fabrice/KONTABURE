@@ -9,7 +9,8 @@ index.html                 the page
 assets/css/kontabure.css   all styles (tokens at the top)
 assets/js/kontabure.js     interactions + scroll choreography (config at the top)
 assets/vendor/             GSAP 3.15 + ScrollTrigger (vendored, no CDN needed)
-assets/fonts/              Geist, Geist Mono, Instrument Serif (self-hosted, OFL)
+assets/fonts/              Poppins 300–700 (self-hosted, OFL); Arial is a system font
+assets/img/                hero photograph (1672px and 960px)
 assets/screens/            product screens used in every frame (see "Screenshots" below)
 tools/                     source + script that generated the sample screens
 ```
@@ -47,8 +48,10 @@ identity is built around it.
   for the product story, runs through an actual day in the horizontal section, and returns to **ink**
   (night) for features, pricing and the close. The existing dark navy + blue + warm-amber palette is kept,
   but given a job: **blue = the product**, **amber = action and money**.
-- **Type:** *Instrument Serif* for editorial display headlines (the existing site already used a serif),
-  *Geist* for UI and body, *Geist Mono* for labels, indices and the clock.
+- **Type:** **Poppins** is the main typeface (headlines, labels, navigation, buttons, figures) and **Arial**
+  the second (running text). Emphasis inside headlines uses Poppins Light in the product blue, not italics.
+- **Photography:** the hero is a boutique counter at dusk with the Kigali skyline beyond, under a layered
+  dark grade with a faint navy tint, so it sets the scene without competing with the product.
 - **Restraint:** one hero glow, no decorative blobs, no grid of identical rounded cards. Features are a
   typographic ledger, local strengths a two-column manifesto, categories a lit word wall.
 
@@ -56,8 +59,8 @@ identity is built around it.
 
 | # | Section | What happens |
 |---|---|---|
-| 1 | **Hero** | Headline (word-mask reveal, strike drawn across *notebook*). The dashboard lies tilted back like a screen on a shop counter, with floating activity from the product (repayment, stock in, running low). |
-| 2 | **Signature transition** *(pinned)* | Scrolling lifts and flattens the dashboard and expands it to near full screen. The floating activity flies off, and the page washes from ink to paper. |
+| 1 | **Hero** | Full-bleed photograph under a dark grade, with the headline anchored bottom-left so the cashier and skyline stay visible. Word-mask reveal, a strike drawn across *notebook*, two activity notifications floating in the scene, and the dashboard's top edge peeking up from the counter. |
+| 2 | **Signature transition** *(pinned)* | Scrolling lifts and flattens the dashboard and expands it to near full screen. The photo drifts and slowly zooms (parallax) while an ink layer deepens over it, so the interface takes focus. The notifications fly into the dashboard, then the photo dissolves as the page washes from ink to paper. |
 | 3 | **Read the dashboard** *(pinned)* | "One screen. *Your whole shop.*" Four numbered annotations appear one by one: Sales today, Owed to you, This week, Running low. This answers "what does the dashboard tell me?" |
 | 4 | **One connected system** *(pinned)* | The frame slides right and turns in 3D as "Your entire boutique. *One connected system.*" rises on the left. |
 | 5 | **How it works: five chapters** *(pinned frame, scrolling text)* | Set up → Inventory → Sales → Credit → Understand. Each chapter swaps the real screen with a clip-path wipe (direction-aware on reverse scroll) and **moves a camera** to the relevant part of the UI. A chapter-specific callout chip and a clickable step rail update with it. |
@@ -69,7 +72,7 @@ identity is built around it.
 | 11 | **Close + footer** *(sheet transition)* | "Put your boutique on KONTABURE *today*." Request a demo / Get started. The giant KONTABURE wordmark rises letter by letter at the very end. |
 
 **Compact layout (below 1024px wide or 620px tall):** a deliberately vertical version, not a scaled-down
-desktop. The hero frame flattens as it scrolls in. Each chapter carries its own **phone-specific crop**
+desktop. On phones the photograph becomes a band above the copy (with parallax), and the hero frame flattens as it scrolls in. Each chapter carries its own **phone-specific crop**
 (single cards that stay legible at 390px), the day becomes a vertical timeline with night cards, the
 sale demo stacks with a connector, and navigation moves into a full-screen menu.
 

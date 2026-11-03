@@ -20,7 +20,7 @@
 <link rel="icon" href="https://kontabure.africa/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="https://kontabure.africa/pwaicon.png">
 
-<link rel="preload" href="assets/screens/overview.webp" as="image" type="image/webp">
+<link rel="preload" as="image" href="assets/img/hero-boutique.webp" imagesrcset="assets/img/hero-boutique-960.webp 960w, assets/img/hero-boutique.webp 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/kontabure.css">
 
 <script>
@@ -32,7 +32,7 @@
     var h = d.documentElement, m = window.matchMedia;
     h.classList.remove('no-js'); h.classList.add('js');
     // Font preloads only over http(s); file:// blocks CORS preloads (fonts still load via CSS).
-    if (location.protocol.indexOf('http') === 0) ['geist-latin', 'instrument-serif-latin'].forEach(function (f) {
+    if (location.protocol.indexOf('http') === 0) ['poppins-600-latin', 'poppins-500-latin'].forEach(function (f) {
       var l = d.createElement('link'); l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous';
       l.href = 'assets/fonts/' + f + '.woff2'; d.head.appendChild(l);
     });
@@ -118,6 +118,14 @@
 <section class="story" id="top" data-nav="dark" aria-label="KONTABURE introduction">
 
   <div class="stage" aria-hidden="false">
+    <!-- Hero photograph: graded dark, drifts and dims as the dashboard rises -->
+    <div class="stage__photo" aria-hidden="true">
+      <div class="stage__photo-inner">
+        <img src="assets/img/hero-boutique.webp" srcset="assets/img/hero-boutique-960.webp 960w, assets/img/hero-boutique.webp 1672w" sizes="100vw" alt="" width="1672" height="941" decoding="async" fetchpriority="high">
+        <span class="photo-shade"></span>
+        <span class="stage__dim"></span>
+      </div>
+    </div>
     <div class="stage__glow" aria-hidden="true"></div>
     <div class="stage__rules" aria-hidden="true"></div>
 
@@ -134,7 +142,7 @@
       </div>
       <div class="device__view">
         <div class="device__cam">
-          <img class="device__shot is-active" data-shot="overview" src="assets/screens/overview.webp" alt="" width="1440" height="900" decoding="async" fetchpriority="high">
+          <img class="device__shot is-active" data-shot="overview" src="assets/screens/overview.webp" alt="" width="1440" height="900" decoding="async">
           <img class="device__shot" data-shot="products" src="assets/screens/products.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
           <img class="device__shot" data-shot="stock" src="assets/screens/stock.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
           <img class="device__shot" data-shot="sales" src="assets/screens/sales.webp" alt="" width="1440" height="900" decoding="async" loading="lazy">
@@ -149,14 +157,14 @@
         </ol>
       </div>
 
-      <!-- Floating activity, taken from the product's own activity feed -->
-      <div class="chip chip--a" aria-hidden="true"><span class="chip__icon chip__icon--green"><svg><use href="#i-repay"/></svg></span><span><b>+RWF 5,000 repaid</b><small>Credit · Uwase M.</small></span></div>
-      <div class="chip chip--b" aria-hidden="true"><span class="chip__icon chip__icon--blue"><svg><use href="#i-truck"/></svg></span><span><b>Stock in recorded</b><small>24 items from supplier</small></span></div>
-      <div class="chip chip--c" aria-hidden="true"><span class="chip__icon chip__icon--red"><svg><use href="#i-alert"/></svg></span><span><b>Running low</b><small>Cooking gas refill · 2 left</small></span></div>
 
       <!-- One callout that changes with each chapter -->
       <div class="chip chip--step" aria-hidden="true"><span class="chip__icon chip__icon--blue"><svg><use href="#i-layers"/></svg></span><span><b>Up to 300 items</b><small>added in one go</small></span></div>
     </figure>
+
+    <!-- Activity from the shop floor; it flies into the dashboard as you scroll -->
+    <div class="float float--a" aria-hidden="true"><div class="chip"><span class="chip__icon chip__icon--green"><svg><use href="#i-repay"/></svg></span><span><b>+RWF 5,000 repaid</b><small>Credit · Uwase M.</small></span></div></div>
+    <div class="float float--b" aria-hidden="true"><div class="chip"><span class="chip__icon chip__icon--blue"><svg><use href="#i-truck"/></svg></span><span><b>Stock in recorded</b><small>24 items from supplier</small></span></div></div>
 
     <nav class="rail" aria-label="Product tour steps">
       <button type="button" data-goto="0"><span>01</span>Set up</button>
@@ -171,6 +179,7 @@
   <div class="flow">
     <!-- ------------------------------------------------ HERO -->
     <header class="hero">
+      <div class="hero__photo" aria-hidden="true"><img src="assets/img/hero-boutique.webp" srcset="assets/img/hero-boutique-960.webp 960w, assets/img/hero-boutique.webp 1672w" sizes="100vw" alt="" width="1672" height="941" decoding="async"><span class="photo-shade"></span></div>
       <div class="hero__copy">
         <p class="eyebrow eyebrow--chip" data-rv><span class="eyebrow__dot" aria-hidden="true"></span>KONTABURE for boutiques</p>
         <h1 class="hero__title" data-split>Run your boutique <br class="br-wide">without the <span class="strike">notebook<svg class="strike__line" viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 19 C 70 9, 150 23, 296 11"/></svg></span></h1>
