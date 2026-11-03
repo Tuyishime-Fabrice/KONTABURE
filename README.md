@@ -5,9 +5,13 @@ It has scroll-driven storytelling on desktop, a separately designed touch layout
 version for people who prefer reduced motion.
 
 ```
-index.html                 the page
+index.html                 the page (includes the brand intro markup)
 assets/css/kontabure.css   all styles (tokens at the top)
 assets/js/kontabure.js     interactions + scroll choreography (config at the top)
+assets/css/intro.css       brand intro, scenes 1-3 (self-contained)
+assets/js/intro.js         brand intro, hand-off to the page (no dependencies)
+assets/brand/              official logo as SVG (light + reverse), mark, favicons
+tools/brand/build-logo.py  draws the logo artwork from geometry + Poppins outlines
 assets/vendor/             GSAP 3.15 + ScrollTrigger (vendored, no CDN needed)
 assets/fonts/              Poppins 300–700 (self-hosted, OFL); Arial is a system font
 assets/img/                hero photograph (1672px and 960px)
@@ -17,7 +21,7 @@ tools/                     source + script that generated the sample screens
 
 **To view it:** open `index.html` in a browser, or serve the folder (for example `python3 -m http.server`)
 and visit `http://localhost:8000`. It works offline. The only external URLs are the existing
-`https://kontabure.africa/login` links and the favicon/manifest.
+`https://kontabure.africa/login` links and the manifest. Add `?intro` to the URL to replay the brand intro.
 
 ---
 
@@ -43,19 +47,55 @@ identity is built around it.
 
 - **Motif:** faint ruled ledger lines and an amber "margin rule" (the vertical red line of an exercise
   book) recur from the hero to the footer. The hero crosses out the word *notebook* with a drawn amber stroke.
-  The placeholder logo mark is a ledger page with the same amber margin line.
-- **Colour as time of day:** the page starts at **ink** (dusk, closing the shop), washes to **paper** (day)
-  for the product story, runs through an actual day in the horizontal section, and returns to **ink**
-  (night) for features, pricing and the close. The existing dark navy + blue + warm-amber palette is kept,
-  but given a job: **blue = the product**, **amber = action and money**.
+- **Brand colours:** deep forest `#123C34`, emerald `#00B88A`, warm ivory `#F7F7F2`. Dark sections use a
+  forest-tinted black, light sections use the ivory, and emerald carries the product accent, headline
+  emphasis and every primary button. Amber survives only as a small warm accent (the pen stroke, the margin
+  rule, the clock's sun). All of this lives in the tokens at the top of `kontabure.css`.
+- **Colour as time of day:** the page starts dark (dusk, closing the shop), washes to ivory (day)
+  for the product story, runs through an actual day in the horizontal section, and returns to dark
+  (night) for features, pricing and the close.
 - **Type:** **Poppins** is the main typeface (headlines, labels, navigation, buttons, figures) and **Arial**
-  the second (running text). Emphasis inside headlines uses Poppins Light in the product blue, not italics.
+  the second (running text). Emphasis inside headlines uses Poppins Light in emerald, not italics.
 - **Photography:** the hero is a boutique counter at dusk with the Kigali skyline beyond, under a layered
-  dark grade with a faint navy tint, so it sets the scene without competing with the product.
+  dark grade with a faint forest tint, so it sets the scene without competing with the product.
 - **Restraint:** one hero glow, no decorative blobs, no grid of identical rounded cards. Features are a
   typographic ledger, local strengths a two-column manifesto, categories a lit word wall.
 
-## 3. The scroll experience, section by section
+## 3. Logo and brand intro
+
+**Logo.** The supplied logo was redrawn as clean vector artwork (`tools/brand/build-logo.py`), keeping
+its structure and proportions: the K's stem and arm with a notch at the top, the separate triangular leg,
+and three rising emerald bars set into the K like a sales chart. The white channel around the bars is
+derived by offsetting the bars, so it has a constant width and concentric curves. The wordmark is drawn
+from Poppins ExtraBold outlines (the site's typeface) and keeps the logo's signature crossbar-less **Λ**,
+made from Poppins' V turned upside down so its strokes match the other letters. Files in `assets/brand/`:
+`kontabure-logo.svg` (light backgrounds), `kontabure-logo-reverse.svg` (dark backgrounds), the mark on
+its own, `favicon.svg`, and PNG favicons (32, 180, 512). On the page the logo is one SVG symbol
+(`#logo-lockup`), used in the navigation, footer and intro.
+
+**Brand intro.** On a fresh visit the page opens on a short brand sequence and then becomes the page
+itself. There's no video: it's live SVG and CSS, about 4 seconds long.
+
+| Time | Scene |
+|---|---|
+| 0.0 s | Deep forest. A faint emerald light settles on the floor. |
+| 0.15 s | The K drops in from above and lands with one soft rebound. |
+| 0.8 s | The three bars rise inside the K, one after another, like a chart. |
+| 1.15 s | The K steps aside as **KONTABURE** is drawn: each letter is traced as a fine emerald outline, then inked in ivory. |
+| 2.25 s | One emerald accent travels across the logo; a swoosh draws beneath it. |
+| 3.05 s | Hand-off: the logo flies into its exact place in the navigation while the scene opens from the centre onto the hero photograph, and the headline and buttons rise. |
+
+- **When it plays:** once per browser session (`sessionStorage`), on fresh visits only. It does not play on
+  reload or back/forward, on deep links (`/#pricing`), or with *reduce motion* switched on. `?intro` replays it.
+- **Never in the way:** a *Skip intro* button (the first Tab stop), and any scroll, swipe, key press or click
+  skips straight to the hand-off. The page is loaded and rendered behind the intro the whole time.
+- **Robust by design:** scenes 1-3 are pure CSS on inline SVG, so they start at first paint without waiting
+  for any script. The hand-off uses the browser's own animation API, not GSAP. If scripts fail, CSS and
+  head-script safety nets clear the intro and restore scrolling by about 7 seconds.
+- **To remove it:** delete the `brand-intro` block in `index.html`, the two `intro` files and the intro lines
+  in the head script.
+
+## 4. The scroll experience, section by section
 
 | # | Section | What happens |
 |---|---|---|
@@ -78,7 +118,7 @@ sale demo stacks with a connector, and navigation moves into a full-screen menu.
 
 **Reduced motion:** nothing is scroll-animated or hidden. You get the compact layout with every element visible.
 
-## 4. Product screens
+## 5. Product screens
 
 **No dashboard screenshots were received with the brief** (only the existing page and the video). So the
 prototype uses six **sample screens** (`assets/screens/*.webp`, 2880×1800) rendered from
@@ -117,7 +157,7 @@ or tabs), and keep personal names out of frame.
 All frames are real `<img>` elements cropped with CSS, so nothing is redrawn or faked once real screenshots
 are in place.
 
-## 5. Technical notes
+## 6. Technical notes
 
 - **Dependencies:** GSAP 3.15 + ScrollTrigger (free "standard no-charge" licence), vendored. Nothing else.
   No build step.
@@ -136,7 +176,7 @@ are in place.
 - **Fail-safes:** with no JavaScript or no GSAP, the page is a complete static page. A 3-second safety net
   un-hides content if scripts fail to load.
 
-## 6. Decisions that need your confirmation
+## 7. Decisions that need your confirmation
 
 1. **Contact email.** The previous page's contact address used the old brand domain. It was replaced with
    `support@kontabure.africa`, set once as `contactEmail` in `assets/js/kontabure.js`. **Please confirm
@@ -149,12 +189,12 @@ are in place.
    footer anchors pointed to sections that did not exist. Those were dropped. All remaining links work:
    `/login` (unchanged journeys, including Help Center / Documentation / Training) and the section anchors
    `#features`, `#how-it-works`, `#shop`, `#pricing` (same anchors as before, so existing deep links still work).
-4. **Logo.** The original logo file was not included. A placeholder ledger-page mark lives in one SVG symbol
-   (`#logo-mark` in `index.html`). Swap in the real mark there.
+4. **Brand palette.** The page's colours were moved onto the brand palette (see section 2). The layout,
+   type and motion are unchanged; reverting is a matter of the tokens at the top of `kontabure.css`.
 5. **Web app manifest.** `https://kontabure.africa/manifest.webmanifest` is linked as before. If it still
-   carries the old app name, update it on the server.
+   carries the old app name or icons, update it on the server (the new icons are in `assets/brand/`).
 
-## 7. QA performed
+## 8. QA performed
 
 Automated with Playwright (Chromium), all with **zero console errors**:
 
@@ -171,6 +211,12 @@ Automated with Playwright (Chromium), all with **zero console errors**:
 - **Mobile** (iPhone 13), **tablet** (820×1180) and **reduced motion** (desktop and mobile): full-page
   captures, no horizontal overflow, all content visible.
 - Opens correctly from `file://` and over http.
+- **Brand intro:** playback recorded as video from navigation to fully revealed page on desktop and
+  iPhone 13 and checked frame by frame (hand-off starts at about 3.2 s, page fully revealed by 4.5 s).
+  Checked: Skip (page ready in under a second, focus lands on the nav logo), the first Tab stop is Skip,
+  Enter skips, mouse wheel skips and the page then scrolls, no replay in the same session or on reload,
+  no intro on a deep link, `?intro` replays, no intro with reduced motion, and with every script blocked
+  the intro still clears itself and scrolling works.
 
 Not covered: real-device Safari/iOS, Firefox, and frame-rate profiling on low-end Android hardware. These
 are worth a pass before launch.

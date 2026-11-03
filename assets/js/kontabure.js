@@ -527,7 +527,8 @@
     if (reduce) return undefined;
 
     const cleanups = [];
-    heroIntro(cinema);
+    // The hero reveal waits for the brand intro's hand-off when the intro is playing.
+    afterBrandIntro(ctx.add('heroIntro', () => heroIntro(cinema)));
     reveals();
     headings();
     ledgerReveal();
@@ -546,6 +547,15 @@
   });
   if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
   window.addEventListener('load', () => ScrollTrigger.refresh());
+
+  /* ---------------------------------------------------------------- brand intro hand-off */
+  function afterBrandIntro(fn) {
+    if (!html.classList.contains('intro-on') || window.__kIntroRevealed) { fn(); return; }
+    let done = false;
+    const go = () => { if (!done) { done = true; fn(); } };
+    document.addEventListener('kontabure:intro-reveal', go, { once: true });
+    setTimeout(go, 7000);
+  }
 
   /* ---------------------------------------------------------------- hero intro (on load) */
   function heroIntro(cinema) {
@@ -736,7 +746,7 @@
     tl.to(glow, { opacity: 0, duration: .7 }, .25);
 
     // B — dusk to day: ink washes to paper
-    tl.fromTo(storyEl, { backgroundColor: '#070A12' }, { backgroundColor: '#F3F0E8', duration: .6 }, P_READ - .45);
+    tl.fromTo(storyEl, { backgroundColor: '#06110E' }, { backgroundColor: '#F7F7F2', duration: .6 }, P_READ - .45);
     tl.fromTo(stage, { '--wash': 0 }, { '--wash': 1, duration: .6 }, P_READ - .45);
     tl.fromTo(photoInner, { opacity: 1 }, { opacity: 0, duration: .45 }, P_READ - .45);
     tl.fromTo(title, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .3 }, P_READ - .12);
@@ -831,7 +841,7 @@
     const moments = $$('.moment', track);
     const nowEl = $('.day__now');
     const lineEl = $('.day__line');
-    const TONES = { dawn: '#E4EAF2', morning: '#F3F0E8', noon: '#F6EEDA', afternoon: '#EFD9AE', dusk: '#251E33', night: '#070A12' };
+    const TONES = { dawn: '#E2ECE7', morning: '#F7F7F2', noon: '#F6EEDA', afternoon: '#EFD9AE', dusk: '#16302A', night: '#06110E' };
     const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
     const setHeight = () => dayEl.style.setProperty('--day-h', (dist() + window.innerHeight) + 'px');
     setHeight();
