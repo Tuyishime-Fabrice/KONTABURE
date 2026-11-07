@@ -112,11 +112,26 @@ itself. There's no video: it's live SVG and CSS, about 4 seconds long.
 | 11 | **Close + footer** *(sheet transition)* | "Put your business on KONTABURE *today*." Request a demo / Get started. The giant KONTABURE wordmark rises letter by letter at the very end. |
 
 **Compact layout (below 1024px wide or 620px tall):** a deliberately vertical version, not a scaled-down
-desktop. On phones the photograph becomes a band above the copy (with parallax), and the hero frame flattens as it scrolls in. Each chapter carries its own **phone-specific crop**
-(single cards that stay legible at 390px), the day becomes a vertical timeline with night cards, the
-sale demo stacks with a connector, and navigation moves into a full-screen menu.
+desktop. The hero frame flattens as it scrolls in, chapters alternate text and screen, the day becomes a
+vertical timeline with night cards, the sale demo stacks with a connector, and navigation moves into a
+full-screen menu.
 
-**Reduced motion:** nothing is scroll-animated or hidden. You get the compact layout with every element visible.
+**Phones (640px and below): less to read, more to tap.** The page is about 11 screens long on an
+iPhone 13 (it was 24). One idea per screen; detail moves behind a swipe or a tap:
+
+- Hero: photo band, headline, one paragraph, and the two buttons side by side. The ticks and the small
+  dashboard are left out (the next section shows the dashboard at a readable size).
+- Dashboard: one readable crop of the KPI tiles, without the numbered list.
+- How it works: the five chapters are **cards you swipe** (CSS scroll-snap, equal 5:4 phone crops, progress
+  dots, keyboard-reachable strip). Each card keeps its screen, title and one sentence.
+- One sale: the results are compact rows.
+- A day in your shop: a **short timeline** (time, title, one line) with no screenshots, since the cards
+  already show them.
+- Features: **titles only; tap one to open it** (real buttons with `aria-expanded`, added by script on
+  phones only, so desktop and no-JS keep the full ledger).
+- Your business: four short lines, smaller category words; tighter spacing for pricing, close and footer.
+
+**Reduced motion:** nothing is scroll-animated or hidden by animation. You get the compact layout (or the phone layout on phones) with every element shown at once.
 
 ## 5. Product screens
 
