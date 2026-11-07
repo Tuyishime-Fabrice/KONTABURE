@@ -45,24 +45,26 @@
     // finance: Reports › Financial Reports (1440 × 1030)
     'fin-report':    [268, 72, 1160, 700],
     'fin-statement': [268, 349, 644, 681],
+    'fin-sm':        [268, 349, 600, 480],
     'fin-mix':       [908, 673, 520, 264],
     // ai: AI business intelligence (1440 × 1230)
     'ai-page':       [268, 72, 1160, 725],
     'ai-top':        [268, 72, 1160, 486],
     'ai-recs':       [268, 550, 582, 450],
+    'ai-sm':         [268, 550, 582, 466],
     // stock: Stock › Stock in (1440 × 1000)
     'st-in':         [268, 289, 684, 428],
-    'st-in-sm':      [268, 289, 560, 428],
+    'st-sm':         [268, 289, 560, 448],
     'st-count':      [268, 713, 684, 290],
     'st-low':        [948, 289, 480, 329],
     'st-best':       [948, 614, 480, 320],
     // products: Stock › Add products
     'pr-template':   [268, 133, 1160, 203],
     'pr-bulk':       [268, 328, 1160, 560],
-    'pr-bulk-sm':    [268, 328, 600, 420],
+    'pr-sm':         [268, 328, 600, 480],
     // credit: Customers
     'cr-table':      [268, 289, 711, 568],
-    'cr-table-sm':   [268, 289, 480, 420],
+    'cr-sm':         [268, 289, 525, 420],
     'cr-repay':      [975, 289, 453, 291]
   };
   /* "Camera" framing for the pinned product frame (16:10 regions of the top 1440 × 900). */
@@ -91,7 +93,7 @@
   const fmt = (n) => Math.round(n).toLocaleString('en-US');
   const docTop = (el) => el.getBoundingClientRect().top + window.scrollY;
   const reduceMQ = mq('(prefers-reduced-motion: reduce)');
-  const smallMQ = mq('(max-width: 600px)');
+  const smallMQ = mq('(max-width: 640px)');
   const hasGSAP = !!(window.gsap && window.ScrollTrigger);
   window.__kontabureReady = true;
 
@@ -109,6 +111,75 @@
   }
   applyCrops();
   smallMQ.addEventListener('change', () => { applyCrops(); if (hasGSAP) ScrollTrigger.refresh(); });
+
+  /* ---------------------------------------------------------------- phones: chapter carousel */
+  // On phones the five chapters are a swipe carousel (CSS scroll-snap); this keeps the dots in step
+  // and makes the strip reachable by keyboard.
+  (function chapterCarousel() {
+    const track = $('.chapters');
+    const dots = $$('.chapters__dots i');
+    if (!track || !dots.length) return;
+    const cards = $$('.chapter', track);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const x = track.scrollLeft;
+      const step = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : 1;
+      const atEnd = x + track.clientWidth >= track.scrollWidth - 4;
+      const i = atEnd ? cards.length - 1 : Math.round(x / step);
+      dots.forEach((d, k) => d.classList.toggle('is-on', k === i));
+    };
+    track.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    const mode = () => {
+      if (smallMQ.matches) { track.setAttribute('tabindex', '0'); track.setAttribute('role', 'region'); }
+      else { track.removeAttribute('tabindex'); track.removeAttribute('role'); }
+      update();
+    };
+    mode();
+    smallMQ.addEventListener('change', mode);
+  })();
+
+  /* ---------------------------------------------------------------- phones: features as an accordion */
+  // Titles only; tap a feature to read its description. Desktop and tablet keep the full ledger.
+  (function ledgerAccordion() {
+    const ledger = $('.ledger');
+    if (!ledger) return;
+    const rows = $$('.ledger__row', ledger);
+    const build = () => {
+      const on = smallMQ.matches;
+      if (on === ledger.classList.contains('is-accordion')) return;
+      ledger.classList.toggle('is-accordion', on);
+      rows.forEach((row, i) => {
+        const h = $('h3', row);
+        const p = $('p', row);
+        row.classList.remove('is-open');
+        if (on) {
+          p.id = p.id || 'feature-' + (i + 1);
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'ledger__btn';
+          b.setAttribute('aria-expanded', 'false');
+          b.setAttribute('aria-controls', p.id);
+          b.textContent = h.textContent;
+          h.textContent = '';
+          h.appendChild(b);
+        } else {
+          const b = $('.ledger__btn', h);
+          if (b) h.textContent = b.textContent;
+        }
+      });
+    };
+    ledger.addEventListener('click', (e) => {
+      const b = e.target.closest('.ledger__btn');
+      if (!b) return;
+      const row = b.closest('.ledger__row');
+      const open = !row.classList.contains('is-open');
+      row.classList.toggle('is-open', open);
+      b.setAttribute('aria-expanded', String(open));
+    });
+    build();
+    smallMQ.addEventListener('change', build);
+  })();
 
   /* ---------------------------------------------------------------- contact links */
   $$('[data-contact-link]').forEach((a) => { a.href = 'mailto:' + CONFIG.contactEmail; });
