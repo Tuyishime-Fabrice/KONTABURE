@@ -250,12 +250,12 @@ section[id], [id^="step-"] { scroll-margin-top: 0; }
 .photo-shade::before { content: ""; position: absolute; inset: 0; background: #123C34; mix-blend-mode: multiply; opacity: .3; }
 .hero__lead { color: #C9D0DD; }
 .hero__note { color: #98A1B4; }
-.hero__title { margin-top: 24px; font: 600 clamp(2.5rem, 5.6vw, 5.9rem)/1.04 var(--f-main); letter-spacing: -.035em; text-wrap: balance; }
+.hero__title { margin-top: 24px; font: 600 clamp(2.4rem, 5vw, 5.3rem)/1.05 var(--f-main); letter-spacing: -.035em; text-wrap: balance; }
 .strike { position: relative; display: inline-block; white-space: nowrap; }
 .strike__line { position: absolute; left: -2%; top: 50%; width: 104%; height: .22em; overflow: visible; pointer-events: none; }
 .strike__line path { fill: none; stroke: var(--amber); stroke-width: 7; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .hero__side { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px 48px; margin-top: clamp(24px, 3.4vh, 40px); }
-.hero__lead { font-size: clamp(1.05rem, 1.35vw, 1.24rem); line-height: 1.55; max-width: 36ch; flex: 1 1 320px; }
+.hero__lead { font-size: clamp(1.05rem, 1.35vw, 1.24rem); line-height: 1.55; max-width: 46ch; flex: 1 1 360px; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero__note { flex-basis: 100%; font-size: 13.5px; margin-top: -8px; }
 .hero__ticks { max-width: var(--wide); margin: 28px auto 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 14px; color: var(--on-ink-2); }
@@ -315,7 +315,7 @@ section[id], [id^="step-"] { scroll-margin-top: 0; }
 .device__tag { margin-left: auto; }
 .device__view { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 0 0 16px 16px; background: #F4F6FA; container-type: inline-size; }
 .device__cam { position: absolute; inset: 0; transform-origin: 0 0; }
-.device__shot { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.device__shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; opacity: 0; }
 .device__shot.is-active { opacity: 1; }
 
 .pins { position: absolute; inset: 0; list-style: none; }

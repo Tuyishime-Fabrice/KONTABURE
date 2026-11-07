@@ -33,45 +33,54 @@
     }
   };
 
-  /* Product screens are 1440×900 images in /assets/screens.
-     Crops are [x, y, width, height] in that 1440×900 space. If you replace the
-     sample screens with real screenshots, re-tune these numbers.            */
+  /* Product screens are 1440-wide images in /assets/screens (900 tall, or
+     taller for long pages), rendered by tools/screens/app/build.cjs.
+     Crops are [x, y, width, height] in that space; the build writes the
+     measured box of every [data-crop] element to tools/screens/app/crops.json. */
   const CROPS = {
-    'full':        [0, 0, 1440, 900],
-    'ov-top':      [248, 76, 1176, 491],
-    'ov-kpis':     [248, 76, 592, 157],
-    'ov-low':      [987, 225, 437, 342],
-    'ov-best':     [832, 559, 592, 315],
-    'pr-template': [500, 76, 924, 165],
-    'pr-bulk':     [500, 233, 924, 611],
-    'pr-bulk-sm':  [500, 233, 540, 400],
-    'st-in':       [248, 76, 696, 573],
-    'st-in-sm':    [248, 76, 520, 470],
-    'st-count':    [936, 76, 488, 267],
-    'sa-pay':      [637, 76, 397, 175],
-    'sa-table':    [248, 243, 761, 446],
-    'sa-receipt':  [1001, 243, 423, 446],
-    'cr-table':    [248, 225, 747, 537],
-    'cr-table-sm': [248, 225, 480, 420],
-    'cr-repay':    [987, 225, 437, 289],
-    're-ai':       [963, 216, 461, 354]
+    'full':          [0, 0, 1440, 900],
+    // overview: Books of account › Dashboard
+    'ov-top':        [268, 201, 1160, 589],
+    'ov-kpis':       [268, 201, 588, 202],
+    // finance: Reports › Financial Reports (1440 × 1030)
+    'fin-report':    [268, 72, 1160, 700],
+    'fin-statement': [268, 349, 644, 681],
+    'fin-mix':       [908, 673, 520, 264],
+    // ai: AI business intelligence (1440 × 1230)
+    'ai-page':       [268, 72, 1160, 725],
+    'ai-top':        [268, 72, 1160, 486],
+    'ai-recs':       [268, 550, 582, 450],
+    // stock: Stock › Stock in (1440 × 1000)
+    'st-in':         [268, 289, 684, 428],
+    'st-in-sm':      [268, 289, 560, 428],
+    'st-count':      [268, 713, 684, 290],
+    'st-low':        [948, 289, 480, 329],
+    'st-best':       [948, 614, 480, 320],
+    // products: Stock › Add products
+    'pr-template':   [268, 133, 1160, 203],
+    'pr-bulk':       [268, 328, 1160, 560],
+    'pr-bulk-sm':    [268, 328, 600, 420],
+    // credit: Customers
+    'cr-table':      [268, 289, 711, 568],
+    'cr-table-sm':   [268, 289, 480, 420],
+    'cr-repay':      [975, 289, 453, 291]
   };
-  /* "Camera" framing for the pinned product frame (16:10 regions). */
+  /* "Camera" framing for the pinned product frame (16:10 regions of the top 1440 × 900). */
   const FOCUS = {
     overview: [0, 0, 1440, 900],
-    products: [470, 66, 970, 606],
-    stock:    [240, 66, 1000, 625],
-    sales:    [244, 66, 1190, 744],
-    credit:   [244, 66, 1190, 744],
-    reports:  [244, 66, 1190, 744]
+    products: [256, 64, 1184, 740],
+    stock:    [256, 64, 1184, 740],
+    credit:   [256, 64, 1184, 740],
+    finance:  [256, 64, 1184, 740],
+    ai:       [256, 64, 1184, 740]
   };
   /* One floating callout per chapter (sample data, from the product screens). */
   const STEPS = [
     { shot: 'products', icon: 'i-layers',  tone: 'blue',  title: 'Up to 300 items',          sub: 'added in one go' },
     { shot: 'stock',    icon: 'i-truck',   tone: 'blue',  title: 'Stock in recorded',        sub: '24 items from supplier' },
-    { shot: 'sales',    icon: 'i-receipt', tone: 'amber', title: 'Sale #1042 · RWF 1,900',   sub: 'Mobile money · Aline' },
     { shot: 'credit',   icon: 'i-repay',   tone: 'green', title: '+RWF 5,000 repaid',        sub: 'Credit · Uwase M.' },
-    { shot: 'reports',  icon: 'i-spark',   tone: 'blue',  title: 'AI insight',               sub: 'Sales up 12% on last week' }
+    { shot: 'finance',  icon: 'i-chart',   tone: 'green', title: 'Net income RWF 922,000',   sub: 'Last 30 days' },
+    { shot: 'ai',       icon: 'i-spark',   tone: 'blue',  title: 'AI insight',               sub: 'Sales up 12% on the prior 30 days' }
   ];
 
   /* ---------------------------------------------------------------- helpers */
@@ -561,14 +570,16 @@
   function heroIntro(cinema) {
     const words = $$('.hero__title .wi');
     const rv = $$('.hero [data-rv]');
-    const strike = $('.strike__line path');
+    const strikes = $$('.strike__line path');
     const tl = gsap.timeline({ delay: .15 });
     if (words.length) tl.fromTo(words, { yPercent: 112 }, { yPercent: 0, duration: 1.25, ease: 'expo.out', stagger: .05 }, 0);
     tl.to(rv, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: .08 }, .35);
-    if (strike && strike.getTotalLength) {
-      const len = strike.getTotalLength() || 300;
-      tl.fromTo(strike, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut' }, 1.05);
-    }
+    // Cross out "notebook", then "Excel".
+    strikes.forEach((path, i) => {
+      if (!path.getTotalLength) return;
+      const len = path.getTotalLength() || 300;
+      tl.fromTo(path, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: .75, ease: 'power2.inOut' }, 1.05 + i * .45);
+    });
     if (cinema) {
       tl.fromTo('.stage__photo', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 1.6, ease: 'expo.out' }, 0);
       tl.fromTo('.device', { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' }, .7);

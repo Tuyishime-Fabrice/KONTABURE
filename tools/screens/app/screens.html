@@ -1,0 +1,306 @@
+<!doctype html>
+<!--
+  KONTABURE product screens for the landing page (render source)
+  ----------------------------------------------------------------------------
+  Rebuilt on the real app's shell and components: the sidebar, header, KPI
+  tiles, tabs and statement rows reuse the class names and icons from a saved
+  copy of the live app (Financial Reports page), compiled with Tailwind v3.
+  Pages and their reference:
+    overview  Books of account › Dashboard  (layout from a screenshot of the app)
+    finance   Reports › Financial Reports   (markup from the saved page)
+    ai        AI business intelligence      (layout from a screenshot of the app)
+    stock     Stock › Stock in              (approximation: no reference yet)
+    products  Stock › Add products          (approximation: no reference yet)
+    credit    Customers                     (approximation: no reference yet)
+  All figures are SAMPLE DATA for the demo shop. No customer data is used.
+  Build: node tools/screens/app/build.cjs
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KONTABURE app screens</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="bg-slate-300">
+<div id="out"></div>
+<script>
+const NAV_ICONS = {"Stock": "<path d=\"M12 22V12\"/><path d=\"M20.27 18.27 22 20\"/><path d=\"M21 10.498V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l.98-.559\"/><path d=\"M3.29 7 12 12l8.71-5\"/><path d=\"m7.5 4.27 8.997 5.148\"/><circle cx=\"18.5\" cy=\"16.5\" r=\"2.5\"/>", "Suppliers": "<path d=\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\"/><path d=\"M15 18H9\"/><path d=\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\"/><circle cx=\"17\" cy=\"18\" r=\"2\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/>", "Customers": "<path d=\"M18 21a8 8 0 0 0-16 0\"/><circle cx=\"10\" cy=\"8\" r=\"5\"/><path d=\"M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3\"/>", "Branches": "<path d=\"M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5\"/><path d=\"M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244\"/><path d=\"M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05\"/>", "Reports": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"/><path d=\"M18 17V9\"/><path d=\"M13 17V5\"/><path d=\"M8 17v-3\"/>", "Books of account": "<path d=\"M10 18v-7\"/><path d=\"M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z\"/><path d=\"M14 18v-7\"/><path d=\"M18 18v-7\"/><path d=\"M3 22h18\"/><path d=\"M6 18v-7\"/>", "AI": "<path d=\"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z\"/><path d=\"M20 2v4\"/><path d=\"M22 4h-4\"/><circle cx=\"4\" cy=\"20\" r=\"2\"/>", "Users & Permissions": "<path d=\"M10 15H6a4 4 0 0 0-4 4v2\"/><path d=\"m14.305 16.53.923-.382\"/><path d=\"m15.228 13.852-.923-.383\"/><path d=\"m16.852 12.228-.383-.923\"/><path d=\"m16.852 17.772-.383.924\"/><path d=\"m19.148 12.228.383-.923\"/><path d=\"m19.53 18.696-.382-.924\"/><path d=\"m20.772 13.852.924-.383\"/><path d=\"m20.772 16.148.924.383\"/><circle cx=\"18\" cy=\"15\" r=\"3\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/>", "Company Profile": "<path d=\"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\"/><rect width=\"20\" height=\"14\" x=\"2\" y=\"6\" rx=\"2\"/>", "Settings": "<path d=\"M14 17H5\"/><path d=\"M19 7h-9\"/><circle cx=\"17\" cy=\"17\" r=\"3\"/><circle cx=\"7\" cy=\"7\" r=\"3\"/>"};
+const ICON = {
+  bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
+  chevronLeft: '<path d="m15 18-6-6 6-6"/>', chevronDown: '<path d="m6 9 6 6 6-6"/>', arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  bookOpen: '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+  calculator: '<rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/>',
+  landmark: '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
+  receiptText: '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/>',
+  receipt: '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>',
+  scale: '<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>',
+  fileSheet: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h2"/><path d="M14 13h2"/><path d="M8 17h2"/><path d="M14 17h2"/>',
+  layoutList: '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/>',
+  layoutGrid: '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
+  download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+  printer: '<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/>',
+  wallet: '<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>',
+  chartColumn: '<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+  chartLine: '<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/>',
+  sparkles: '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>',
+  bag: '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  calendar: '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>',
+  trendingUp: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  percent: '<line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+  coin: '<circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/>',
+  cart: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  brain: '<path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+  pkg: '<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/>',
+  truck: '<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  clip: '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  repay: '<path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/>',
+  layers: '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>', plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>'
+};
+const svg = (paths, cls = 'h-4 w-4', sw = 1.75) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" class="${cls}" aria-hidden="true">${paths}</svg>`;
+const fmt = (n) => n.toLocaleString('en-US');
+const SHOP = 'Kimironko Shop';
+
+/* ------------------------------------------------------------ app shell (real classes) */
+const NAV = ['Stock', 'Suppliers', 'Customers', 'Branches', 'Reports', 'Books of account', 'AI', 'Users & Permissions', 'Company Profile'];
+function navItem(label, active) {
+  return active
+    ? `<a aria-current="page" class="group relative flex items-center text-left text-[13px] font-medium transition-all duration-150 rounded-[7px] gap-2.5 py-2 pl-3 pr-3 bg-white text-slate-900 ring-1 ring-slate-200/80 shadow-[0_1px_2px_rgba(16,24,40,0.06)]"><span class="flex h-6 w-6 shrink-0 items-center justify-center transition-colors text-blue-600">${svg(NAV_ICONS[label], 'h-[18px] w-[18px]', 2.1)}</span><span class="leading-snug tracking-[-0.01em]">${label}</span></a>`
+    : `<a class="group relative flex items-center text-left text-[13px] font-medium transition-all duration-150 rounded-[7px] gap-2.5 py-2 pl-3 pr-3 text-slate-500"><span class="flex h-6 w-6 shrink-0 items-center justify-center transition-colors text-slate-400">${svg(NAV_ICONS[label], 'h-[18px] w-[18px]', 1.75)}</span><span class="leading-snug tracking-[-0.01em]">${label}</span></a>`;
+}
+function shell(key, active, main, h = 900) {
+  return `<section class="screen" id="screen-${key}" style="width:1440px;height:${h}px">
+  <div class="flex h-full flex-col boutique-canvas text-foreground font-sans antialiased">
+    <header class="relative z-50 shrink-0 border-b border-slate-200/70 bg-white">
+      <div class="relative flex h-16 items-center justify-between gap-4 px-8">
+        <div class="flex min-w-0 shrink-0 items-center gap-3"></div>
+        <div class="flex shrink-0 items-center gap-2">
+          <button type="button" class="relative flex h-10 w-10 items-center justify-center rounded-app-md border border-slate-200 bg-white text-slate-700"><span class="text-xs font-bold leading-none">EN</span></button>
+          <button type="button" class="relative rounded-app-md p-2 text-slate-700">${svg(ICON.bell, 'h-6 w-6', 1.5)}<span class="absolute right-0.5 top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[var(--accent-urgent)] px-1 text-[11px] font-bold leading-none text-white shadow-sm ring-2 ring-white">3</span></button>
+          <div class="flex items-center gap-2.5 border-l pl-4 border-[var(--border)]"><button type="button" class="module-header-profile"><span class="module-header-avatar">KS</span><span class="module-header-profile-copy"><span class="module-header-profile-name">${SHOP}</span><span class="module-header-profile-role">Owner</span></span></button></div>
+        </div>
+      </div>
+    </header>
+    <div class="flex min-h-0 flex-1">
+      <aside class="relative flex min-h-0 shrink-0 flex-col border-r border-slate-200/70 bg-slate-100/80 py-4 text-slate-900 w-64">
+        <button type="button" class="absolute -right-3 top-5 z-30 flex h-6 w-6 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm">${svg(ICON.chevronLeft, 'h-3.5 w-3.5', 2)}</button>
+        <nav class="relative flex min-h-0 flex-1 flex-col gap-0.5 overflow-hidden pb-1 px-3">${NAV.map((l) => navItem(l, l === active)).join('')}</nav>
+        <div class="relative shrink-0 border-t border-slate-200/70 pt-3 px-3">${navItem('Settings', false)}</div>
+      </aside>
+      <main class="min-h-0 min-w-0 flex-1 overflow-hidden boutique-canvas"><div class="px-6 py-5"><div class="mx-auto w-full max-w-[1440px] space-y-4">${main}</div></div></main>
+    </div>
+  </div>
+</section>`;
+}
+
+/* ------------------------------------------------------------ shared components (real classes) */
+const TONE = {
+  amber: 'bg-amber-500/10 text-amber-600 ring-amber-500/20 border-amber-500/10',
+  emerald: 'bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 border-emerald-500/10',
+  violet: 'bg-violet-500/10 text-violet-600 ring-violet-500/20 border-violet-500/10',
+  blue: 'bg-blue-500/10 text-blue-600 ring-blue-500/20 border-blue-500/10',
+  rose: 'bg-rose-500/10 text-rose-600 ring-rose-500/20 border-rose-500/10',
+  sky: 'bg-sky-500/10 text-sky-600 ring-sky-500/20 border-sky-500/10',
+  cyan: 'bg-cyan-500/10 text-cyan-600 ring-cyan-500/20 border-cyan-500/10',
+  indigo: 'bg-indigo-500/10 text-indigo-600 ring-indigo-500/20 border-indigo-500/10',
+};
+const tile = (icon, tone, label, value, sub, extra = '', crop = '') =>
+  `<article ${crop ? `data-crop="${crop}"` : ''} class="luxury-glass group flex items-center gap-3 rounded-xl border border-white/50 p-3 shadow-sm ${extra}"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border ring-2 ${TONE[tone]}">${svg(ICON[icon], 'h-4.5 w-4.5')}</span><div class="min-w-0 flex-1"><p class="text-[9px] font-black uppercase tracking-[0.12em] text-slate-400 truncate">${label}</p><p class="truncate text-base font-black tracking-tight tabular-nums text-slate-800 mt-0.5">${value}</p><p class="truncate text-[9.5px] font-medium text-slate-500 mt-0.5">${sub}</p></div></article>`;
+const pageHeader = (icon, title, sub, right = '') =>
+  `<header class="flex items-center justify-between gap-4"><div class="flex items-center gap-3"><span class="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-primary-950 text-white shadow-[0_8px_16px_-4px_rgba(15,23,42,0.25)] ring-1 ring-white/10">${svg(ICON[icon] || NAV_ICONS[icon], 'h-5 w-5')}</span><div><h1 class="text-xl font-black tracking-tight text-slate-900">${title}</h1><p class="text-xs text-slate-500">${sub}</p></div></div><div class="flex flex-wrap items-center gap-2.5">${right}</div></header>`;
+const tabs = (items, activeIdx) =>
+  `<nav class="flex gap-1 overflow-hidden rounded-xl border border-slate-200/50 bg-white/60 p-1">${items.map(([ic, l], i) => i === activeIdx
+    ? `<button type="button" class="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-[11px] font-bold uppercase tracking-wide transition bg-primary-500/15 text-primary-700 ring-1 ring-primary-500/25">${svg(ICON[ic], 'h-3.5 w-3.5', 2)}${l}</button>`
+    : `<button type="button" class="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-[11px] font-bold uppercase tracking-wide transition text-slate-500">${svg(ICON[ic], 'h-3.5 w-3.5', 2)}${l}</button>`).join('')}</nav>`;
+const card = (title, sub, body, crop = '', extra = '', right = '') =>
+  `<section ${crop ? `data-crop="${crop}"` : ''} class="luxury-glass border border-white/50 shadow-sm rounded-2xl overflow-hidden ${extra}"><div class="flex items-center justify-between gap-3 border-b border-slate-100 bg-white/40 px-5 py-4"><div><h2 class="text-xs font-black uppercase tracking-wide text-slate-850">${title}</h2>${sub ? `<p class="text-[10px] text-slate-400 mt-0.5">${sub}</p>` : ''}</div>${right}</div><div class="p-5">${body}</div></section>`;
+const row = (l, v) => `<div class="flex items-center justify-between gap-3 rounded-xl px-3 py-2"><span class="text-xs font-semibold text-slate-800">${l}</span><span class="text-xs font-bold tabular-nums text-slate-900">${v}</span></div>`;
+const total = (l, v, tone) => {
+  const t = { emerald: 'border-emerald-500/10 bg-emerald-500/10 text-emerald-800', primary: 'border-primary-500/10 bg-primary-500/10 text-primary-800', slate: 'border-slate-500/10 bg-slate-500/10 text-slate-800' }[tone];
+  return `<div class="flex items-center justify-between gap-3 rounded-xl border px-4 py-3 ${t}"><span class="text-xs font-black uppercase tracking-wide">${l}</span><span class="text-sm font-black tabular-nums">${v}</span></div>`;
+};
+const label9 = (t) => `<p class="text-[9px] font-black uppercase tracking-wider text-slate-400">${t}</p>`;
+const badge = (t, tone) => `<span class="inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-bold ${{ red: 'bg-rose-500/10 text-rose-700 ring-1 ring-rose-500/20', green: 'bg-emerald-500/10 text-emerald-700 ring-1 ring-emerald-500/20', amber: 'bg-amber-500/10 text-amber-700 ring-1 ring-amber-500/20', blue: 'bg-blue-500/10 text-blue-700 ring-1 ring-blue-500/20', slate: 'bg-slate-500/10 text-slate-600 ring-1 ring-slate-500/15' }[tone]}">${t}</span>`;
+const th = (t, r) => `<th class="px-3 pb-2 text-[9px] font-black uppercase tracking-wider text-slate-400 ${r ? 'text-right' : 'text-left'}">${t}</th>`;
+const td = (t, r, strong) => `<td class="whitespace-nowrap px-3 py-2.5 text-xs ${r ? 'text-right tabular-nums' : ''} ${strong ? 'font-bold text-slate-900' : 'font-medium text-slate-600'}">${t}</td>`;
+
+/* simple chart helpers (SVG), styled like the app's charts */
+function areaChart(vals, labels, w, h, color = '#1e40af') {
+  const max = Math.max(...vals) * 1.15, pad = 28, iw = w - pad - 8, ih = h - 28;
+  const pts = vals.map((v, i) => [pad + (i / (vals.length - 1)) * iw, 6 + ih - (v / max) * ih]);
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+  const area = `${line} L${pts[pts.length - 1][0].toFixed(1)} ${6 + ih} L${pad} ${6 + ih} Z`;
+  const grid = [0, .5, 1].map((f) => `<line x1="${pad}" x2="${w - 8}" y1="${(6 + ih - f * ih).toFixed(1)}" y2="${(6 + ih - f * ih).toFixed(1)}" stroke="#EEF2FF" stroke-dasharray="3 3"/>`).join('');
+  const ylab = [0, .5, 1].map((f) => `<text x="${pad - 6}" y="${(6 + ih - f * ih + 3).toFixed(1)}" text-anchor="end" font-size="9" fill="#94a3b8">${f === 0 ? '0' : (max * f / 1e6).toFixed(1) + 'M'}</text>`).join('');
+  const xlab = labels.map((l, i) => `<text x="${(pad + (i / (labels.length - 1)) * iw).toFixed(1)}" y="${h - 4}" text-anchor="middle" font-size="10" fill="#64748b">${l}</text>`).join('');
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}"><defs><linearGradient id="g${color.slice(1)}${w}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".2"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>${grid}${ylab}<path d="${area}" fill="url(#g${color.slice(1)}${w})"/><path d="${line}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>${xlab}</svg>`;
+}
+function barChart(vals, labels, w, h, colors) {
+  const max = Math.max(...vals) * 1.12, n = vals.length, slot = (w - 30) / n, bw = Math.min(46, slot * .55), ih = h - 22;
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">${[0, .5, 1].map((f) => `<line x1="28" x2="${w}" y1="${(4 + ih - f * ih).toFixed(1)}" y2="${(4 + ih - f * ih).toFixed(1)}" stroke="#EEF2FF" stroke-dasharray="3 3"/>`).join('')}${vals.map((v, i) => { const bh = (v / max) * ih; const x = 30 + i * slot + (slot - bw) / 2; return `<rect x="${x.toFixed(1)}" y="${(4 + ih - bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="5" fill="${colors[i] || colors[0]}"/><text x="${(x + bw / 2).toFixed(1)}" y="${h - 4}" text-anchor="middle" font-size="10" fill="#64748b">${labels[i]}</text>`; }).join('')}</svg>`;
+}
+function donut(parts, size = 132) {
+  const r = 48, c = 2 * Math.PI * r; let off = 0;
+  const arcs = parts.map(([, v, col]) => { const len = c * v; const s = `<circle cx="66" cy="66" r="${r}" fill="none" stroke="${col}" stroke-width="16" stroke-dasharray="${len.toFixed(2)} ${(c - len).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 66 66)"/>`; off += len; return s; }).join('');
+  return `<svg viewBox="0 0 132 132" width="${size}" height="${size}">${arcs}</svg>`;
+}
+
+/* ============================================================ 1. overview — Books of account › Dashboard */
+const ovTabs = [['layoutGrid', 'Dashboard'], ['bookOpen', 'Chart of accounts'], ['fileSheet', 'Journal'], ['receiptText', 'General ledger'], ['scale', 'Trial balance'], ['trendingUp', 'Profit & loss'], ['landmark', 'Balance sheet']];
+const overview = shell('overview', 'Books of account', `
+  <div class="rounded-2xl border border-slate-200/60 bg-white/70 p-2 shadow-sm"><nav class="flex items-center gap-1">${ovTabs.map(([ic, l], i) => i === 0
+    ? `<button type="button" class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl bg-slate-800 px-4 py-2.5 text-[11px] font-black uppercase tracking-[0.12em] text-white shadow-[0_6px_14px_-6px_rgba(15,23,42,0.6)]">${svg(ICON[ic], 'h-4 w-4', 2)}${l}</button>`
+    : `<button type="button" class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2.5 text-[11px] font-black uppercase tracking-[0.12em] text-slate-500">${svg(ICON[ic], 'h-4 w-4', 1.75)}${l}</button>`).join('')}</nav></div>
+  <div class="flex justify-end"><button type="button" class="inline-flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-semibold text-slate-800 shadow-sm">All Branches (Consolidated)${svg(ICON.chevronDown, 'h-4 w-4', 2)}</button></div>
+  <div class="grid grid-cols-4 gap-3.5">
+    ${tile('cart', 'emerald', 'Today sales', 'RWF 184,500', 'Tap to compare', 'ring-1 ring-slate-300', 'ov-today')}
+    ${tile('receipt', 'rose', 'Today expenses', 'RWF 12,000', 'Tap to compare')}
+    ${tile('trendingUp', 'sky', 'Today profit', 'RWF 44,500', 'Tap to compare')}
+    ${tile('wallet', 'blue', 'Cash position', 'RWF 1,245,800', 'Tap to compare')}
+    ${tile('calendar', 'indigo', 'Week revenue', 'RWF 1,138,500', 'P&amp;L RWF 241,000')}
+    ${tile('percent', 'violet', 'Month net margin', '21.0%', 'RWF 922,000', '', 'ov-margin')}
+    ${tile('coin', 'cyan', 'Receivables', 'RWF 62,000', 'Tap to compare', '', 'ov-recv')}
+    ${tile('scale', 'amber', 'Payables', 'RWF 18,000', 'Tap to compare')}
+  </div>
+  <div class="grid grid-cols-[1fr_1.15fr_0.95fr] gap-4">
+    <section data-crop="ov-compare" class="luxury-glass rounded-2xl border border-white/50 p-4 shadow-sm">
+      <div class="flex items-center gap-2"><span class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Compare</span><span class="inline-flex whitespace-nowrap rounded-lg bg-slate-100 p-0.5 text-[11px] font-semibold"><span class="rounded-md bg-primary-700 px-2.5 py-1 text-white">By period</span><span class="px-2.5 py-1 text-slate-600">KPI vs KPI</span></span><span class="ml-auto text-[10px] font-black uppercase tracking-wide text-slate-400">KPI</span><span class="inline-flex items-center gap-3 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[12px] font-semibold text-slate-800">Revenue${svg(ICON.chevronDown, 'h-3.5 w-3.5', 2)}</span></div>
+      <div class="mt-3 grid grid-cols-2 gap-2">${[['Today', 'RWF 184,500'], ['Week', 'RWF 1,138,500'], ['Month', 'RWF 4,386,000'], ['YTD', 'RWF 41,920,000']].map(([l, v]) => `<div class="rounded-lg border border-slate-200 bg-white px-2.5 py-2"><p class="text-[9px] font-black uppercase tracking-[0.12em] text-slate-400">${l}</p><p class="text-[13px] font-black tabular-nums text-slate-800">${v}</p></div>`).join('')}</div>
+      <div class="mt-2 rounded-lg border border-primary-200 bg-primary-50/80 px-2.5 py-2"><p class="text-[9px] font-black uppercase tracking-[0.12em] text-primary-800">Period delta · Revenue</p><p class="text-[13px] font-black text-slate-900">Month RWF 4,386,000</p><p class="text-[10px] text-slate-500">vs today <b class="text-emerald-700">RWF 184,500</b> · vs week <b class="text-emerald-700">RWF 1,138,500</b></p></div>
+      <div class="mt-2">${barChart([184500, 1138500, 4386000, 41920000], ['Today', 'Week', 'Month', 'YTD'], 330, 84, ['#1e40af'])}</div>
+      <p class="mt-1 text-center text-[11px] font-semibold text-primary-800">■ Revenue</p>
+    </section>
+    <section data-crop="ov-trend" class="luxury-glass rounded-2xl border border-white/50 p-4 shadow-sm">
+      <p class="text-[13px] font-bold text-slate-900">6-month performance trend</p><p class="text-[11px] text-slate-500">Revenue over time · drag brush to zoom</p>
+      <div class="mt-2 flex items-center gap-2"><span class="inline-flex rounded-full border border-slate-200 bg-white p-0.5 text-[10.5px] font-black uppercase tracking-[0.12em]"><span class="rounded-full bg-slate-100 px-3 py-1 text-slate-800">Area</span><span class="px-3 py-1 text-slate-500">Bars</span></span><span class="text-[12px] font-semibold text-primary-800">Open P&amp;L →</span></div>
+      <div class="mt-3">${areaChart([3200000, 3480000, 3910000, 3700000, 4180000, 4386000], ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'], 390, 168, '#1e40af')}</div>
+      <div class="mx-7 mt-1 h-5 rounded-md border border-primary-300 bg-primary-100/70"></div>
+      <p class="mt-1.5 text-center text-[11px] font-semibold text-primary-800">⟜ Revenue</p>
+    </section>
+    <section class="luxury-glass rounded-2xl border border-white/50 p-4 shadow-sm">
+      <div class="flex items-baseline justify-between"><p class="text-[13px] font-bold text-slate-900">This month mix</p><span class="text-[12px] font-semibold text-primary-800">Details →</span></div><p class="text-[11px] text-slate-500">Click a bar to compare that KPI</p>
+      <div class="mt-4">${barChart([4386000, 3030000, 434000, 922000], ['Revenue', 'COGS', 'Expenses', 'Net'], 320, 210, ['#1e40af', '#7c3aed', '#e11d48', '#059669'])}</div>
+    </section>
+  </div>
+  <div class="grid grid-cols-3 gap-4">
+    ${[['calendar', 'This week', [['Revenue', 'RWF 1,138,500'], ['Expenses', 'RWF 68,000'], ['Net profit', 'RWF 241,000']]], ['layers', 'This month', [['Revenue', 'RWF 4,386,000'], ['Gross profit', 'RWF 1,356,000'], ['Net profit', 'RWF 922,000']]], ['landmark', 'Year to date', [['Revenue', 'RWF 41,920,000'], ['Expenses', 'RWF 4,180,000'], ['Net profit', 'RWF 8,640,000']]]].map(([ic, t, rows]) => `<section ${t === 'This month' ? 'data-crop="ov-month"' : ''} class="luxury-glass rounded-2xl border border-white/50 p-4 shadow-sm"><p class="flex items-center gap-2 text-[13px] font-bold text-slate-900"><span class="flex h-6 w-6 items-center justify-center rounded-md bg-primary-50 text-primary-700">${svg(ICON[ic], 'h-3.5 w-3.5', 2)}</span>${t}</p><div class="mt-2 space-y-1">${rows.map(([l, v]) => `<div class="flex justify-between text-[12px]"><span class="text-slate-500">${l}</span><span class="font-bold tabular-nums text-slate-900">${v}</span></div>`).join('')}</div></section>`).join('')}
+  </div>`);
+
+/* ============================================================ 2. finance — Reports › Financial Reports (saved page) */
+const finTabs = [['calculator', 'Income statement'], ['landmark', 'Cash book'], ['receiptText', 'Expenses'], ['scale', 'Position'], ['fileSheet', 'Journal'], ['bookOpen', 'Trial balance'], ['layoutList', 'Balance sheet'], ['receipt', 'Tax calculator']];
+const finance = shell('finance', 'Reports', `
+  ${pageHeader('bookOpen', 'Financial Reports', `${SHOP} · P&amp;L, cash book, journal, trial balance &amp; more · ledger-backed.`,
+    `<div class="rounded-xl border border-emerald-500/10 bg-emerald-500/10 px-4 py-1.5 text-right ring-1 ring-emerald-500/25"><p class="text-[8px] font-black uppercase tracking-wide text-emerald-700">Net income</p><p class="text-base font-black tabular-nums text-emerald-800">RWF 922,000</p></div><button type="button" class="group flex items-center gap-2 rounded-xl border border-violet-200/70 bg-gradient-to-br from-violet-50/60 to-primary-50/40 px-3.5 py-1.5 text-[10px] font-bold text-violet-700 shadow-sm">${svg(ICON.sparkles, 'h-3.5 w-3.5', 2)}View AI Report</button><a class="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-[10px] font-bold text-slate-500 shadow-sm flex items-center gap-1.5">${svg(ICON.bag, 'h-3.5 w-3.5', 2)}Dashboard</a>`)}
+  <div class="flex items-center justify-between"><div class="flex items-center gap-1 rounded-xl bg-primary-50/80 p-1 ring-1 ring-primary-200/60">${['Today', '7 Days', '30 Days', 'All Time'].map((t) => t === '30 Days' ? `<button type="button" class="rounded-[10px] px-3.5 py-1.5 text-[11px] font-black uppercase tracking-widest bg-white text-primary-900 shadow-sm ring-1 ring-primary-200/80">${t}</button>` : `<button type="button" class="rounded-[10px] px-3.5 py-1.5 text-[11px] font-black uppercase tracking-widest text-primary-800/60">${t}</button>`).join('')}<button type="button" class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] font-semibold text-app-secondary">${svg(ICON.calendar, 'h-3.5 w-3.5', 2)}Custom</button></div></div>
+  <div data-crop="fin-tiles" class="grid grid-cols-4 gap-3.5">
+    ${tile('wallet', 'amber', 'Revenue', 'RWF 4,386,000', 'Last 30 days')}
+    ${tile('chartColumn', 'emerald', 'Gross profit', 'RWF 1,356,000', '30.9% margin')}
+    ${tile('receiptText', 'violet', 'Operating expenses', 'RWF 434,000', '5 expense lines')}
+    ${tile('trendingUp', 'blue', 'Net income', 'RWF 922,000', 'After COGS &amp; expenses +12.0%')}
+  </div>
+  ${tabs(finTabs, 0)}
+  <div class="grid grid-cols-[1.25fr_1fr] gap-5">
+    <div data-crop="fin-statement" class="luxury-glass border border-white/50 shadow-sm rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between gap-3 border-b border-slate-100 bg-white/40 px-5 py-4"><div>${label9('Reporting period')}<p class="text-xs font-bold text-slate-800 mt-0.5">Last 30 days</p></div><div class="flex shrink-0 gap-2"><button type="button" class="os-stock-btn">${svg(ICON.download, '', 2)}CSV</button><button type="button" class="os-stock-btn">${svg(ICON.download, '', 2)}Excel</button><button type="button" class="os-stock-btn">${svg(ICON.printer, '', 2)}Print</button></div></div>
+      <div class="p-5 space-y-4">
+        <div><h2 class="text-sm font-black text-slate-900 uppercase tracking-wide">Income statement</h2><p class="text-xs text-slate-500 mt-0.5">Profit &amp; loss · boutique retail operations</p></div>
+        <section class="space-y-1">${label9('Revenue')}${row('Product Sales Revenue', 'RWF 4,326,000')}${row('Other Income', 'RWF 60,000')}${total('Total revenue', 'RWF 4,386,000', 'emerald')}</section>
+        <section class="space-y-1">${label9('Cost of goods sold')}${row('Cost of goods sold', 'RWF 3,030,000')}${total('Gross profit', 'RWF 1,356,000', 'primary')}</section>
+        <section class="space-y-1">${label9('Operating expenses')}${row('Rent Expense', 'RWF 250,000')}${row('Utilities Expense', 'RWF 70,000')}${row('Transport Expense', 'RWF 64,000')}${total('Total expenses', 'RWF 434,000', 'slate')}</section>
+        ${total('Net income', 'RWF 922,000', 'emerald')}
+      </div>
+    </div>
+    <div class="space-y-5">
+      ${card('Revenue trend', 'Last 30 days', areaChart([132, 141, 128, 150, 162, 138, 171, 149, 155, 170, 158, 181, 164, 176, 169, 188, 172, 190, 179, 197, 185, 201, 192, 207, 189, 198, 186, 212, 196, 184.5].map((v) => v * 1000), ['Oct 9', 'Oct 16', 'Oct 23', 'Oct 30', 'Nov 7'], 470, 196, '#2563EB'), 'fin-trend')}
+      ${card('Payment mix', 'Collected revenue by method', `<div class="flex items-center gap-6">${donut([['Cash', .52, '#2563EB'], ['Mobile money', .48, '#10B981']])}<div class="flex-1 space-y-2">${[['Cash', '52%', 'RWF 2,281,000', '#2563EB'], ['Mobile money', '48%', 'RWF 2,105,000', '#10B981']].map(([l, p, v, c]) => `<div class="flex items-center gap-2 text-xs"><i class="h-2.5 w-2.5 rounded-sm" style="background:${c}"></i><span class="font-semibold text-slate-700">${l}</span><span class="text-slate-400">${p}</span><span class="ml-auto font-bold tabular-nums text-slate-900">${v}</span></div>`).join('')}</div></div>`, 'fin-mix')}
+    </div>
+  </div>`, 1030);
+
+/* ============================================================ 3. ai — AI business intelligence */
+const aiCard = (icon, tone, label, value, sub) => `<article class="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm"><p class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] ${tone}">${svg(ICON[icon], 'h-4 w-4', 2)}${label}</p><p class="mt-3 text-[34px] font-black leading-none tracking-tight text-slate-900 tabular-nums">${value}</p><p class="mt-2 text-sm text-slate-500">${sub}</p></article>`;
+const rec = (level, tone, title, l1, l2) => `<div class="rounded-xl border border-slate-200/80 bg-white p-4"><p class="flex items-center gap-2.5"><span class="rounded-md px-2 py-0.5 text-[10.5px] font-black uppercase tracking-wide ${tone}">${level}</span><b class="text-[14.5px] font-bold text-slate-900">${title}</b></p><p class="mt-1.5 text-[13px] text-slate-500">${l1}</p><p class="mt-0.5 text-[13px] text-slate-500">${l2}</p></div>`;
+const ai = shell('ai', 'AI', `
+  <header class="flex items-start justify-between"><div><p class="text-[11px] font-black uppercase tracking-[0.3em] text-primary-900">AI business intelligence</p><h1 class="mt-1 text-[26px] font-bold tracking-tight text-slate-900">${SHOP}</h1><p class="text-sm text-slate-500">Last 30 days · boutique · Health: Good</p></div><button type="button" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-primary-800 shadow-sm">${svg(ICON.refresh, 'h-4 w-4', 2)}Refresh insights</button></header>
+  <div data-crop="ai-cards" class="grid grid-cols-4 gap-4">
+    ${aiCard('brain', 'text-slate-800', 'Business health', '78', 'Good')}
+    ${aiCard('trendingUp', 'text-emerald-700', 'Sales trend', '+12.0%', 'Up')}
+    ${aiCard('alert', 'text-amber-600', 'Low stock', '3', 'items need attention')}
+    ${aiCard('chartLine', 'text-blue-700', 'Tomorrow forecast', 'RWF 186K', '~39 transactions')}
+  </div>
+  <section data-crop="ai-summary" class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+    <p class="flex items-center gap-2.5 text-lg font-bold text-slate-900"><span class="text-primary-800">${svg(ICON.sparkles, 'h-5 w-5', 1.75)}</span>Executive Summary</p>
+    <p class="mt-3 text-[15px] leading-relaxed text-slate-700">Over the last 30 days, ${SHOP} recorded RWF 4.39M across 1,140 transactions, up 12.0% vs the prior period. Boutique credit exposure: RWF 62K outstanding.</p>
+    <div class="mt-4 grid grid-cols-2 gap-8"><div><p class="text-[11px] font-black uppercase tracking-[0.14em] text-slate-500">What happened</p><p class="mt-1 text-[14px] text-slate-700">Saturday was the best day; beverages and snacks sold fastest.</p></div><div><p class="text-[11px] font-black uppercase tracking-[0.14em] text-slate-500">Why</p><p class="mt-1 text-[14px] text-slate-700">More weekend transactions and steady demand for everyday items lifted revenue.</p></div></div>
+  </section>
+  <div class="grid grid-cols-2 gap-5">
+    <section data-crop="ai-recs" class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"><p class="flex items-center gap-2.5 text-lg font-bold text-slate-900"><span class="text-amber-500">${svg(ICON.target, 'h-5 w-5', 2)}</span>Recommendations</p><div class="mt-4 space-y-3">
+      ${rec('High', 'bg-amber-100 text-amber-700', 'Restock items running low', 'Fresh milk 500ml, Sugar 1kg and Cooking gas refill are close to running out', 'Reorder before the weekend peak')}
+      ${rec('Medium', 'bg-blue-100 text-blue-700', 'Follow up on boutique credit balances', 'RWF 62,000 outstanding on credit customers', 'Improve cash flow and reduce bad debt exposure')}
+      ${rec('Low', 'bg-slate-100 text-slate-600', 'Keep an eye on the payment mix', 'Cash is 52% of collections, mobile money 48%', 'Reconcile both daily')}
+    </div></section>
+    <section class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"><p class="flex items-center gap-2.5 text-lg font-bold text-slate-900"><span class="text-rose-500">${svg(ICON.alert, 'h-5 w-5', 2)}</span>Anomalies &amp; Alerts</p>
+      <p class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[14px] text-emerald-800">No unusual activity this period</p>
+      <p class="mt-5 text-[11px] font-black uppercase tracking-[0.14em] text-slate-500">Top KPIs</p>
+      <div class="mt-2 grid grid-cols-2 gap-2">${[['Total sales', 'RWF 4.39M'], ['Revenue', 'RWF 4.39M'], ['Transactions', '1,140'], ['Average order value', 'RWF 3.8K'], ['Sales growth', '+12.0%'], ['Void/refund rate', '0.4%']].map(([l, v]) => `<div class="rounded-xl bg-slate-50 px-3 py-2.5"><p class="text-[10px] font-black uppercase tracking-[0.12em] text-slate-400">${l}</p><p class="text-[15px] font-black tabular-nums text-slate-900">${v}</p></div>`).join('')}</div>
+    </section>
+  </div>`, 1230);
+
+/* ============================================================ 4. stock — Stock › Stock in (approximation) */
+const delivery = [['Fresh milk 500ml', 12, 450], ['Sugar 1kg', 6, 1250], ['Cooking gas refill', 2, 14500], ['Bottled water 500ml', 4, 350]];
+const stock = shell('stock', 'Stock', `
+  ${pageHeader('Stock', 'Stock', `${SHOP} · products, stock levels and movements`, `<button type="button" class="inline-flex items-center gap-1.5 rounded-xl bg-primary-700 px-3.5 py-2 text-[11px] font-bold text-white shadow-sm">${svg(ICON.plus, 'h-3.5 w-3.5', 2.2)}Stock in</button>`)}
+  <div class="grid grid-cols-4 gap-3.5">
+    ${tile('pkg', 'blue', 'Products', '248', '11 categories')}
+    ${tile('wallet', 'emerald', 'Stock value', 'RWF 2,310,000', 'At buying cost')}
+    ${tile('alert', 'rose', 'Running low', '3 products', 'Below reorder level')}
+    ${tile('truck', 'amber', 'Stock in today', '24 items', 'From Mugisha J.')}
+  </div>
+  ${tabs([['pkg', 'Products'], ['truck', 'Stock in'], ['clip', 'Stock count'], ['layoutList', 'Movements']], 1)}
+  <div class="grid grid-cols-[1.45fr_1fr] gap-5">
+    <div class="space-y-5">
+      ${card('Stock in from supplier', 'Delivery DL-0318 · today, 10:04', `<div class="mb-4 grid grid-cols-3 gap-3">${[['Supplier', 'Mugisha J.'], ['Received by', 'Aline'], ['Branch', 'Kimironko']].map(([l, v]) => `<div>${label9(l)}<div class="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-800">${v}</div></div>`).join('')}</div><table class="w-full"><thead><tr>${th('Product')}${th('Quantity', 1)}${th('Buying cost (RWF)', 1)}${th('Line total', 1)}</tr></thead><tbody>${delivery.map(([n, q, c]) => `<tr class="border-t border-slate-100">${td(n, 0, 1)}${td('+' + q, 1)}${td(fmt(c), 1)}${td(fmt(q * c), 1, 1)}</tr>`).join('')}</tbody></table>${'<div class="mt-3">' + total('24 items received · buying cost', 'RWF 43,300', 'primary') + '</div>'}`, 'st-in', '', badge('Recorded', 'green'))}
+      ${card('Stock count · Shelf B', 'Counted by Eric', `<table class="w-full"><thead><tr>${th('Product')}${th('Expected', 1)}${th('Counted', 1)}${th('Difference', 1)}</tr></thead><tbody>${[['Biscuits', 80, 78, badge('−2', 'red')], ['Laundry soap', 36, 36, badge('0', 'slate')], ['Toothpaste', 20, 21, badge('+1', 'green')]].map(([n, e, c, d]) => `<tr class="border-t border-slate-100">${td(n, 0, 1)}${td(e, 1)}${td(c, 1)}<td class="px-3 py-2.5 text-right">${d}</td></tr>`).join('')}</tbody></table>`, 'st-count', '', '<button type="button" class="os-stock-btn">Apply adjustments</button>')}
+    </div>
+    <div class="space-y-5">
+      ${card('Running low', 'Restock before they run out', `<div class="space-y-1">${[['Fresh milk 500ml', 'Food', 4, 40], ['Sugar 1kg', 'Cooking Ingredients', 6, 30], ['Cooking gas refill', 'Gas &amp; Charcoal', 2, 10]].map(([n, c, l, cap]) => `<div class="flex items-center gap-3 rounded-xl px-3 py-2.5"><div class="min-w-0 flex-1"><p class="text-xs font-bold text-slate-900">${n}</p><p class="text-[10px] text-slate-400">${c}</p><div class="mt-1.5 h-1.5 w-full rounded-full bg-slate-100"><div class="h-1.5 rounded-full bg-rose-500" style="width:${l / cap * 100}%"></div></div></div>${badge(l + ' left', 'red')}</div>`).join('')}</div>`, 'st-low')}
+      ${card('Best sellers', 'This week', `<div class="space-y-1">${[['Bottled water 500ml', 64], ['Bread loaf', 41], ['Sugar 1kg', 33], ['Fresh milk 500ml', 29]].map(([n, v], i) => `<div class="flex items-center gap-3 rounded-xl px-3 py-2"><span class="w-5 text-[11px] font-black text-slate-400">0${i + 1}</span><div class="min-w-0 flex-1"><p class="text-xs font-bold text-slate-900">${n}</p><div class="mt-1.5 h-1.5 w-full rounded-full bg-slate-100"><div class="h-1.5 rounded-full bg-primary-600" style="width:${v / 64 * 100}%"></div></div></div><span class="text-xs font-bold tabular-nums text-slate-900">${v} sold</span></div>`).join('')}</div>`, 'st-best')}
+    </div>
+  </div>`, 1000);
+
+/* ============================================================ 5. products — Stock › Add products (approximation) */
+const bulk = [['Bottled water 500ml', 'Beverages', 'Bottle', 500, 120], ['Fresh milk 500ml', 'Food', 'Packet', 600, 40], ['Sugar 1kg', 'Cooking Ingredients', 'kg', 1500, 30], ['Rice 1kg', 'Food', 'kg', 1400, 50], ['Cooking oil 1L', 'Cooking Ingredients', 'Litre', 2800, 24], ['Biscuits', 'Snacks', 'Packet', 300, 80], ['Laundry soap', 'Cleaning', 'Piece', 700, 36], ['Toothpaste', 'Personal Care', 'Piece', 1200, 20], ['Exercise book', 'Stationery', 'Piece', 400, 60]];
+const cats = ['Food', 'Beverages', 'Snacks', 'Household', 'Cleaning', 'Personal Care', 'Baby Products', 'Stationery', 'Cooking Ingredients', 'Gas &amp; Charcoal', 'Other'];
+const products = shell('products', 'Stock', `
+  ${pageHeader('Stock', 'Add products', `${SHOP} · start from a template, then set units, prices and opening stock`, `<span class="rounded-xl border border-primary-200 bg-primary-50 px-3 py-1.5 text-[11px] font-bold text-primary-800">Up to 300 items in one go</span>`)}
+  ${card('Start from a ready-made template', 'Products come with their category and unit already set', `<div class="flex flex-wrap gap-2">${cats.map((c, i) => `<span class="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[11.5px] font-semibold ${i < 3 ? 'border-primary-300 bg-primary-50 text-primary-800' : 'border-slate-200 bg-white text-slate-600'}">${i < 3 ? svg(ICON.check, 'h-3.5 w-3.5', 2.4) : ''}${c}</span>`).join('')}</div>`, 'pr-template')}
+  ${card('Add products in bulk', '24 of 300 rows', `<table class="w-full"><thead><tr>${th('#')}${th('Product name')}${th('Category')}${th('Unit')}${th('Selling price (RWF)', 1)}${th('Opening stock', 1)}</tr></thead><tbody>${bulk.map(([n, c, u, p, s], i) => `<tr class="border-t border-slate-100">${td(i + 1)}${td(n, 0, 1)}<td class="px-3 py-2.5">${badge(c, 'slate')}</td>${td(u)}${td(fmt(p), 1)}${td(s, 1, 1)}</tr>`).join('')}</tbody></table>`, 'pr-bulk', '', `<button type="button" class="inline-flex items-center gap-1.5 rounded-xl bg-primary-700 px-3.5 py-2 text-[11px] font-bold text-white shadow-sm">${svg(ICON.check, 'h-3.5 w-3.5', 2.4)}Save 24 products</button>`)}`);
+
+/* ============================================================ 6. credit — Customers (approximation) */
+const owing = [['Uwase M.', 'Regulars', 8500, 30000, 'Repaid RWF 5,000 · today'], ['Niyonsaba J.', 'Regulars', 15000, 30000, 'Bought on credit · yesterday'], ['Mukamana A.', 'Neighbours', 12500, 20000, 'Bought on credit · 2 days ago'], ['Iradukunda P.', 'Regulars', 11000, 30000, 'Repaid RWF 2,000 · 3 days ago'], ['Habimana E.', 'Staff', 9000, 15000, 'Bought on credit · 4 days ago'], ['Mutoni G.', 'Neighbours', 6000, 20000, 'Bought on credit · last week']];
+const credit = shell('credit', 'Customers', `
+  ${pageHeader('Customers', 'Customers', `${SHOP} · balances, repayments and credit limits`, `<button type="button" class="inline-flex items-center gap-1.5 rounded-xl bg-primary-700 px-3.5 py-2 text-[11px] font-bold text-white shadow-sm">${svg(ICON.repay, 'h-3.5 w-3.5', 2)}Record repayment</button>`)}
+  <div class="grid grid-cols-4 gap-3.5">
+    ${tile('wallet', 'amber', 'Owed to you', 'RWF 62,000', '6 customers with a balance')}
+    ${tile('repay', 'emerald', 'Repaid today', 'RWF 5,000', 'Uwase M.')}
+    ${tile('cart', 'blue', 'Sold on credit today', 'RWF 17,000', 'Within group limits')}
+    ${tile('users', 'violet', 'Customer groups', '3', 'With credit limits')}
+  </div>
+  ${tabs([['wallet', 'Owing'], ['users', 'All customers'], ['layers', 'Groups'], ['repay', 'Repayments']], 0)}
+  <div class="grid grid-cols-[1.6fr_1fr] gap-5">
+    ${card('Who owes the shop', 'Sorted by last activity', `<table class="w-full"><thead><tr>${th('Customer')}${th('Group')}${th('Balance (RWF)', 1)}${th('Limit used')}${th('Last activity')}</tr></thead><tbody>${owing.map(([n, g, b, l, a], i) => `<tr class="border-t border-slate-100 ${i === 0 ? 'bg-emerald-50/60' : ''}">${td(n, 0, 1)}<td class="px-3 py-2.5">${badge(g, 'slate')}</td>${td(fmt(b), 1, 1)}<td class="px-3 py-2.5"><div class="flex items-center gap-2"><div class="h-1.5 w-24 rounded-full bg-slate-100"><div class="h-1.5 rounded-full ${b / l > .6 ? 'bg-amber-500' : 'bg-primary-600'}" style="width:${b / l * 100}%"></div></div><span class="text-[10px] text-slate-400">${fmt(l / 1000)}k</span></div></td>${td(a)}</tr>`).join('')}</tbody></table>`, 'cr-table')}
+    <div class="space-y-5">
+      ${card('Record repayment', '', `<div class="grid grid-cols-2 gap-3"><div class="col-span-2">${label9('Customer')}<div class="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-800">Uwase M. · Regulars</div></div><div>${label9('Amount (RWF)')}<div class="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-800">5,000</div></div><div>${label9('Paid with')}<div class="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-800">Cash</div></div></div><div class="mt-3">${total('Balance 13,500 → 8,500', 'RWF 8,500', 'emerald')}</div>`, 'cr-repay', '', badge('Saved', 'green'))}
+      ${card('Customer groups', 'Credit limits', `<div class="space-y-1">${[['Regulars', 30000, 3], ['Neighbours', 20000, 2], ['Staff', 15000, 1]].map(([g, l, c]) => `<div class="flex items-center justify-between rounded-xl px-3 py-2"><div><p class="text-xs font-bold text-slate-900">${g}</p><p class="text-[10px] text-slate-400">${c} owing</p></div><span class="text-xs font-bold tabular-nums text-slate-900">Limit RWF ${fmt(l)}</span></div>`).join('')}</div>`, 'cr-groups')}
+    </div>
+  </div>`);
+
+document.getElementById('out').innerHTML = [overview, finance, ai, stock, products, credit].join('<div style="height:40px"></div>');
+document.fonts.ready.then(() => { document.body.dataset.ready = '1'; });
+</script>
+</body>
+</html>
