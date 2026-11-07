@@ -294,7 +294,7 @@
   /* ---------------------------------------------------------------- demo / sales dialog */
   const dialog = $('#demo-dialog');
   const DIALOG_COPY = {
-    demo: { eyebrow: 'Book a demo', title: 'See KONTABURE in your shop', lead: "Tell us a little about your shop and we'll walk you through it.", subject: 'KONTABURE demo request' },
+    demo: { eyebrow: 'Book a demo', title: 'See KONTABURE in your business', lead: "Tell us a little about your business and we'll walk you through it.", subject: 'KONTABURE demo request' },
     sales: { eyebrow: 'Talk to sales', title: 'Pricing for your business', lead: "Tell us about your branches and volume, and we'll get back to you with pricing tailored to your business.", subject: 'KONTABURE Enterprise pricing' }
   };
   let dialogKind = 'demo';
@@ -339,7 +339,7 @@
       const body = [
         `Name: ${name}`,
         `Phone: ${phone}`,
-        `Shop: ${(data.get('shop') || '').toString().trim() || '—'}`,
+        `Business: ${(data.get('business') || '').toString().trim() || '—'}`,
         `Preferred language: ${data.get('lang') || 'English'}`,
         '',
         (data.get('message') || '').toString().trim()
