@@ -5,7 +5,7 @@
 @font-face { font-family: "Inter"; src: url("../fonts/inter-latin.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
 :root { --color-primary: #2563eb; --accent-urgent: #f97316; --border: #e2e8f0; --surface-muted: #f1f5f9; --bg: #f4f6f9; }
 /* The app's own component classes (their stylesheet was not in the saved page; matched to screenshots). */
-.boutique-canvas { background: #f4f6f9; }
+.app-canvas { background: #f4f6f9; }
 .luxury-glass { background: rgba(255, 255, 255, .92); }
 .text-app-secondary { color: #64748b; }
 .os-stock-btn { display: inline-flex; align-items: center; gap: .375rem; border-radius: .5rem; border: 1px solid #e2e8f0; background: #fff; padding: .375rem .75rem; font-size: 11px; font-weight: 600; color: #475569; }
