@@ -105,7 +105,7 @@ itself. There's no video: it's live SVG and CSS, about 4 seconds long.
 | 4 | **One connected system** *(pinned)* | The frame slides right and turns in 3D as "Your entire business. *One connected system.*" rises on the left. |
 | 5 | **How it works: five chapters** *(pinned frame, scrolling text)* | Set up → Inventory → Credit → Books (financial reports) → Insights (AI business intelligence). The order builds from daily operations to the profit and the explanation behind it. Each chapter swaps the real screen with a clip-path wipe (direction-aware on reverse scroll) and **moves a camera** to the relevant part of the UI. A chapter-specific callout chip and a clickable step rail update with it. |
 | 6 | **One sale, everywhere** | Interactive: choose Cash / Mobile money / On credit and press *Record sale*. Pulses travel to Stock (6 → 5, running low), Sales today (+RWF 1,500) and Payments or the customer's credit balance. Stock eventually runs out; *Reset* restores it. |
-| 7 | **A day in your shop** *(horizontal)* | Vertical scroll drives a horizontal day from 07:00 to 21:00: running low before opening, supplier delivery, lunchtime rush (payment mix), credit, repayment, and AI business intelligence at closing. A live clock counts the time, the background moves dawn → noon → warm afternoon → dusk → night, and frames move in parallax. The section opens through a window that expands to full screen. |
+| 7 | **A day in your business** *(horizontal)* | Vertical scroll drives a horizontal day from 07:00 to 21:00: running low before opening, supplier delivery, lunchtime rush (payment mix), credit, repayment, and AI business intelligence at closing. A live clock counts the time, the background moves dawn → noon → warm afternoon → dusk → night, and frames move in parallax. The section opens through a window that expands to full screen. |
 | 8 | **Features ledger** | The capabilities from the current page as ledger rows, plus Books of account and AI business intelligence from the app. On desktop, hovering a row shows a cursor-following crop of the matching screen. |
 | 9 | **Designed for local businesses** | English & Kinyarwanda, RWF, credit for regulars, same-day setup, then the 11 default categories light up word by word as you scroll. |
 | 10 | **Pricing** *(sheet transition)* | Slides up over the previous section like a new page while that section sinks and dims. The billing toggle (Monthly / Quarterly / Annual −20%) is keyboard-accessible and renders from the pricing data. |
@@ -125,7 +125,7 @@ iPhone 13 (it was 24). One idea per screen; detail moves behind a swipe or a tap
 - How it works: the five chapters are **cards you swipe** (CSS scroll-snap, equal 5:4 phone crops, progress
   dots, keyboard-reachable strip). Each card keeps its screen, title and one sentence.
 - One sale: the results are compact rows.
-- A day in your shop: a **short timeline** (time, title, one line) with no screenshots, since the cards
+- A day in your business: a **short timeline** (time, title, one line) with no screenshots, since the cards
   already show them.
 - Features: **titles only; tap one to open it** (real buttons with `aria-expanded`, added by script on
   phones only, so desktop and no-JS keep the full ledger).
@@ -148,7 +148,7 @@ live app (Financial Reports page), compiled with Tailwind v3. The source is `too
 | `products.webp` (1440×900) | Stock › Add products | approximation, no reference yet | Chapter 01, "Products in minutes" |
 | `credit.webp` (1440×900) | Customers | approximation, no reference yet | Chapter 03, 16:00 and 18:30 moments, "Customers on credit" |
 
-**Sample data only.** Every figure belongs to a demo shop ("Kimironko Shop"). No data from a live account
+**Sample data only.** Every figure belongs to a demo business ("Kimironko Business"). No data from a live account
 was used or committed (the repository is public). The main frame carries a "Sample data" tag and every
 alt text says "(sample data)". Three details to know:
 
