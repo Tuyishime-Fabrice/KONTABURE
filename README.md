@@ -1,6 +1,6 @@
 # KONTABURE: landing page redesign
 
-A complete, working HTML prototype of the new public landing page for **KONTABURE for Boutiques**.
+A complete, working HTML prototype of the new public landing page for **KONTABURE for Businesses**.
 It has scroll-driven storytelling on desktop, a separately designed touch layout, and a fully static
 version for people who prefer reduced motion.
 
@@ -42,7 +42,7 @@ with a 30-day trial. The old brand name was removed everywhere.
 
 ## 2. Visual direction: "the notebook becomes the system"
 
-The headline, *"Run your business without the notebook & Excel"* (originally *"Run your boutique without the notebook"*), is the brand's best idea, so the
+The headline, *"Run your business without the notebook & Excel"*, is the brand's best idea, so the
 identity is built around it.
 
 - **Motif:** faint ruled ledger lines and an amber "margin rule" (the vertical red line of an exercise
@@ -56,7 +56,7 @@ identity is built around it.
   (night) for features, pricing and the close.
 - **Type:** **Poppins** is the main typeface (headlines, labels, navigation, buttons, figures) and **Arial**
   the second (running text). Emphasis inside headlines uses Poppins Light in emerald, not italics.
-- **Photography:** the hero is a boutique counter at dusk with the Kigali skyline beyond, under a layered
+- **Photography:** the hero is a shop counter at dusk with the Kigali skyline beyond, under a layered
   dark grade with a faint forest tint, so it sets the scene without competing with the product.
 - **Restraint:** one hero glow, no decorative blobs, no grid of identical rounded cards. Features are a
   typographic ledger, local strengths a two-column manifesto, categories a lit word wall.
@@ -102,14 +102,14 @@ itself. There's no video: it's live SVG and CSS, about 4 seconds long.
 | 1 | **Hero** | Full-bleed photograph under a dark grade, with the headline anchored bottom-left so the cashier and skyline stay visible. Word-mask reveal, strikes drawn across *notebook* and *Excel*, a lead that frames the product as business intelligence (profit and loss, cash flow, AI insights), two activity notifications floating in the scene, and the dashboard's top edge peeking up from the counter. |
 | 2 | **Signature transition** *(pinned)* | Scrolling lifts and flattens the dashboard and expands it to near full screen. The photo drifts and slowly zooms (parallax) while an ink layer deepens over it, so the interface takes focus. The notifications fly into the dashboard, then the photo dissolves as the page washes from ink to paper. |
 | 3 | **Read the dashboard** *(pinned)* | "One screen. *Your whole business.*" Four numbered annotations appear one by one on the Books of account dashboard: Today sales, Today profit, 6-month trend, This month mix. This answers "what does the dashboard tell me?" |
-| 4 | **One connected system** *(pinned)* | The frame slides right and turns in 3D as "Your entire boutique. *One connected system.*" rises on the left. |
+| 4 | **One connected system** *(pinned)* | The frame slides right and turns in 3D as "Your entire business. *One connected system.*" rises on the left. |
 | 5 | **How it works: five chapters** *(pinned frame, scrolling text)* | Set up → Inventory → Credit → Books (financial reports) → Insights (AI business intelligence). The order builds from daily operations to the profit and the explanation behind it. Each chapter swaps the real screen with a clip-path wipe (direction-aware on reverse scroll) and **moves a camera** to the relevant part of the UI. A chapter-specific callout chip and a clickable step rail update with it. |
 | 6 | **One sale, everywhere** | Interactive: choose Cash / Mobile money / On credit and press *Record sale*. Pulses travel to Stock (6 → 5, running low), Sales today (+RWF 1,500) and Payments or the customer's credit balance. Stock eventually runs out; *Reset* restores it. |
 | 7 | **A day in your shop** *(horizontal)* | Vertical scroll drives a horizontal day from 07:00 to 21:00: running low before opening, supplier delivery, lunchtime rush (payment mix), credit, repayment, and AI business intelligence at closing. A live clock counts the time, the background moves dawn → noon → warm afternoon → dusk → night, and frames move in parallax. The section opens through a window that expands to full screen. |
 | 8 | **Features ledger** | The capabilities from the current page as ledger rows, plus Books of account and AI business intelligence from the app. On desktop, hovering a row shows a cursor-following crop of the matching screen. |
 | 9 | **Designed for local businesses** | English & Kinyarwanda, RWF, credit for regulars, same-day setup, then the 11 default categories light up word by word as you scroll. |
 | 10 | **Pricing** *(sheet transition)* | Slides up over the previous section like a new page while that section sinks and dims. The billing toggle (Monthly / Quarterly / Annual −20%) is keyboard-accessible and renders from the pricing data. |
-| 11 | **Close + footer** *(sheet transition)* | "Put your boutique on KONTABURE *today*." Request a demo / Get started. The giant KONTABURE wordmark rises letter by letter at the very end. |
+| 11 | **Close + footer** *(sheet transition)* | "Put your business on KONTABURE *today*." Request a demo / Get started. The giant KONTABURE wordmark rises letter by letter at the very end. |
 
 **Compact layout (below 1024px wide or 620px tall):** a deliberately vertical version, not a scaled-down
 desktop. On phones the photograph becomes a band above the copy (with parallax), and the hero frame flattens as it scrolls in. Each chapter carries its own **phone-specific crop**
@@ -138,8 +138,8 @@ was used or committed (the repository is public). The main frame carries a "Samp
 alt text says "(sample data)". Three details to know:
 
 - The real app's sidebar footer shows a version line with the old product name. It is left out of the screens.
-- The word "boutique" appears inside the screens only where the app itself prints it (the business type in
-  the income statement subtitle and in the AI summary).
+- Where the app prints its business type (the income statement subtitle and the AI summary), the screens
+  say "business".
 - The payment mix shows Cash and Mobile money as sample methods.
 
 **Rebuild the screens** (needs Playwright; Tailwind 3.4.17 is fetched with npx, or set `TAILWIND_BIN`):

@@ -75,7 +75,7 @@ function navItem(label, active) {
 }
 function shell(key, active, main, h = 900) {
   return `<section class="screen" id="screen-${key}" style="width:1440px;height:${h}px">
-  <div class="flex h-full flex-col boutique-canvas text-foreground font-sans antialiased">
+  <div class="flex h-full flex-col app-canvas text-foreground font-sans antialiased">
     <header class="relative z-50 shrink-0 border-b border-slate-200/70 bg-white">
       <div class="relative flex h-16 items-center justify-between gap-4 px-8">
         <div class="flex min-w-0 shrink-0 items-center gap-3"></div>
@@ -92,7 +92,7 @@ function shell(key, active, main, h = 900) {
         <nav class="relative flex min-h-0 flex-1 flex-col gap-0.5 overflow-hidden pb-1 px-3">${NAV.map((l) => navItem(l, l === active)).join('')}</nav>
         <div class="relative shrink-0 border-t border-slate-200/70 pt-3 px-3">${navItem('Settings', false)}</div>
       </aside>
-      <main class="min-h-0 min-w-0 flex-1 overflow-hidden boutique-canvas"><div class="px-6 py-5"><div class="mx-auto w-full max-w-[1440px] space-y-4">${main}</div></div></main>
+      <main class="min-h-0 min-w-0 flex-1 overflow-hidden app-canvas"><div class="px-6 py-5"><div class="mx-auto w-full max-w-[1440px] space-y-4">${main}</div></div></main>
     </div>
   </div>
 </section>`;
@@ -208,7 +208,7 @@ const finance = shell('finance', 'Reports', `
     <div data-crop="fin-statement" class="luxury-glass border border-white/50 shadow-sm rounded-2xl overflow-hidden">
       <div class="flex items-center justify-between gap-3 border-b border-slate-100 bg-white/40 px-5 py-4"><div>${label9('Reporting period')}<p class="text-xs font-bold text-slate-800 mt-0.5">Last 30 days</p></div><div class="flex shrink-0 gap-2"><button type="button" class="os-stock-btn">${svg(ICON.download, '', 2)}CSV</button><button type="button" class="os-stock-btn">${svg(ICON.download, '', 2)}Excel</button><button type="button" class="os-stock-btn">${svg(ICON.printer, '', 2)}Print</button></div></div>
       <div class="p-5 space-y-4">
-        <div><h2 class="text-sm font-black text-slate-900 uppercase tracking-wide">Income statement</h2><p class="text-xs text-slate-500 mt-0.5">Profit &amp; loss · boutique retail operations</p></div>
+        <div><h2 class="text-sm font-black text-slate-900 uppercase tracking-wide">Income statement</h2><p class="text-xs text-slate-500 mt-0.5">Profit &amp; loss · business retail operations</p></div>
         <section class="space-y-1">${label9('Revenue')}${row('Product Sales Revenue', 'RWF 4,326,000')}${row('Other Income', 'RWF 60,000')}${total('Total revenue', 'RWF 4,386,000', 'emerald')}</section>
         <section class="space-y-1">${label9('Cost of goods sold')}${row('Cost of goods sold', 'RWF 3,030,000')}${total('Gross profit', 'RWF 1,356,000', 'primary')}</section>
         <section class="space-y-1">${label9('Operating expenses')}${row('Rent Expense', 'RWF 250,000')}${row('Utilities Expense', 'RWF 70,000')}${row('Transport Expense', 'RWF 64,000')}${total('Total expenses', 'RWF 434,000', 'slate')}</section>
@@ -225,7 +225,7 @@ const finance = shell('finance', 'Reports', `
 const aiCard = (icon, tone, label, value, sub) => `<article class="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm"><p class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] ${tone}">${svg(ICON[icon], 'h-4 w-4', 2)}${label}</p><p class="mt-3 text-[34px] font-black leading-none tracking-tight text-slate-900 tabular-nums">${value}</p><p class="mt-2 text-sm text-slate-500">${sub}</p></article>`;
 const rec = (level, tone, title, l1, l2) => `<div class="rounded-xl border border-slate-200/80 bg-white p-4"><p class="flex items-center gap-2.5"><span class="rounded-md px-2 py-0.5 text-[10.5px] font-black uppercase tracking-wide ${tone}">${level}</span><b class="text-[14.5px] font-bold text-slate-900">${title}</b></p><p class="mt-1.5 text-[13px] text-slate-500">${l1}</p><p class="mt-0.5 text-[13px] text-slate-500">${l2}</p></div>`;
 const ai = shell('ai', 'AI', `
-  <header class="flex items-start justify-between"><div><p class="text-[11px] font-black uppercase tracking-[0.3em] text-primary-900">AI business intelligence</p><h1 class="mt-1 text-[26px] font-bold tracking-tight text-slate-900">${SHOP}</h1><p class="text-sm text-slate-500">Last 30 days · boutique · Health: Good</p></div><button type="button" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-primary-800 shadow-sm">${svg(ICON.refresh, 'h-4 w-4', 2)}Refresh insights</button></header>
+  <header class="flex items-start justify-between"><div><p class="text-[11px] font-black uppercase tracking-[0.3em] text-primary-900">AI business intelligence</p><h1 class="mt-1 text-[26px] font-bold tracking-tight text-slate-900">${SHOP}</h1><p class="text-sm text-slate-500">Last 30 days · business · Health: Good</p></div><button type="button" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-primary-800 shadow-sm">${svg(ICON.refresh, 'h-4 w-4', 2)}Refresh insights</button></header>
   <div data-crop="ai-cards" class="grid grid-cols-4 gap-4">
     ${aiCard('brain', 'text-slate-800', 'Business health', '78', 'Good')}
     ${aiCard('trendingUp', 'text-emerald-700', 'Sales trend', '+12.0%', 'Up')}
@@ -234,13 +234,13 @@ const ai = shell('ai', 'AI', `
   </div>
   <section data-crop="ai-summary" class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
     <p class="flex items-center gap-2.5 text-lg font-bold text-slate-900"><span class="text-primary-800">${svg(ICON.sparkles, 'h-5 w-5', 1.75)}</span>Executive Summary</p>
-    <p class="mt-3 text-[15px] leading-relaxed text-slate-700">Over the last 30 days, ${SHOP} recorded RWF 4.39M across 1,140 transactions, up 12.0% vs the prior period. Boutique credit exposure: RWF 62K outstanding.</p>
+    <p class="mt-3 text-[15px] leading-relaxed text-slate-700">Over the last 30 days, ${SHOP} recorded RWF 4.39M across 1,140 transactions, up 12.0% vs the prior period. Business credit exposure: RWF 62K outstanding.</p>
     <div class="mt-4 grid grid-cols-2 gap-8"><div><p class="text-[11px] font-black uppercase tracking-[0.14em] text-slate-500">What happened</p><p class="mt-1 text-[14px] text-slate-700">Saturday was the best day; beverages and snacks sold fastest.</p></div><div><p class="text-[11px] font-black uppercase tracking-[0.14em] text-slate-500">Why</p><p class="mt-1 text-[14px] text-slate-700">More weekend transactions and steady demand for everyday items lifted revenue.</p></div></div>
   </section>
   <div class="grid grid-cols-2 gap-5">
     <section data-crop="ai-recs" class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"><p class="flex items-center gap-2.5 text-lg font-bold text-slate-900"><span class="text-amber-500">${svg(ICON.target, 'h-5 w-5', 2)}</span>Recommendations</p><div class="mt-4 space-y-3">
       ${rec('High', 'bg-amber-100 text-amber-700', 'Restock items running low', 'Fresh milk 500ml, Sugar 1kg and Cooking gas refill are close to running out', 'Reorder before the weekend peak')}
-      ${rec('Medium', 'bg-blue-100 text-blue-700', 'Follow up on boutique credit balances', 'RWF 62,000 outstanding on credit customers', 'Improve cash flow and reduce bad debt exposure')}
+      ${rec('Medium', 'bg-blue-100 text-blue-700', 'Follow up on business credit balances', 'RWF 62,000 outstanding on credit customers', 'Improve cash flow and reduce bad debt exposure')}
       ${rec('Low', 'bg-slate-100 text-slate-600', 'Keep an eye on the payment mix', 'Cash is 52% of collections, mobile money 48%', 'Reconcile both daily')}
     </div></section>
     <section class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"><p class="flex items-center gap-2.5 text-lg font-bold text-slate-900"><span class="text-rose-500">${svg(ICON.alert, 'h-5 w-5', 2)}</span>Anomalies &amp; Alerts</p>
